@@ -4,24 +4,57 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.DecimalFormat;
-import java.text.Format;
+import java.time.LocalDate;
 import java.util.Arrays;
-import java.util.Dictionary;
 import java.util.HashMap;
-import java.util.Hashtable;
 import java.util.Random;
 
 public class ScripDeCreacion {
 
-	//INSERT INTO equipo (idEquipo, nombre, localidad, pais, nombreCorto) values (1,'Palencia 2000 S.A.D.','Palencia','Espana','Palencia');
+	//variables estaticas para uso general
 	private static String inicio="INSERT INTO equipo (", medio=") values (",fin=");";
 	private static String[] dni={};
 	private static String[] idInmoviliaria={};
 	private static int[] cantidadOficinas={};
-		public static void main(String[] args) {
+	private static int[] numeroViviendas={};
+
+	private static String[] localidad={"Valladolid","Barcelona","Valencia","Vezdemarban","Alcalá de Henares", "Aínsa", "Albarracín", "Cangas de Onís", "Comillas","Cuenca", "Frigiliana", "Laguardia", "Olite", "Potes","Ronda", "Santillana del Mar", "Trujillo", "Úbeda", "Zafra"};
+	//private static String[] provincias = {"Álava", "Albacete", "Alicante", "Almería", "Asturias","Ávila", "Badajoz", "Baleares", "Barcelona", "Burgos","Cáceres", "Cádiz", "Cantabria", "Castellón", "Ciudad Real","Córdoba", "Cuenca", "Gerona", "Granada", "Guadalajara","Guipúzcoa", "Huelva", "Huesca", "Jaén", "La Coruña","La Rioja", "Las Palmas", "León", "Lérida", "Lugo","Madrid", "Málaga", "Murcia", "Navarra", "Orense","Palencia", "Pontevedra", "Salamanca", "Santa Cruz de Tenerife", "Segovia","Sevilla", "Soria", "Tarragona", "Teruel", "Toledo","Valencia", "Valladolid", "Vizcaya", "Zamora", "Zaragoza"};
+	private static String[] direccion1={"Calle","Avenida","Paseo","Plaza","Bulevard",};
+	private static String[] direccion2={"Adrián", "Beatriz", "Carlos", "Daniela", "Elena","Francisco", "Gabriela", "Hugo", "Isabel", "Javier","Karla", "Luis", "Marta", "Nicolás", "Macedonia","Pablo", "Raquel", "Samuel", "Teresa", "Víctor","Alicia", "Gavilla", "Clara", "Diego", "Eva","Félix", "Gloria", "Héctor", "Irene", "Joaquín"};
+	private static String[] apellidos = {"García", "Martínez", "López", "Sánchez", "Pérez", "González", "Rodríguez", "Fernández", "Gómez", "Ruiz","Hernández", "Jiménez", "Díaz", "Moreno", "Muñoz", "Álvarez", "Romero", "Alonso", "Gutiérrez", "Navarro","Torres", "Domínguez", "Vázquez", "Ramos", "Gil", "Ramírez", "Serrano", "Blanco", "Molina", "Morales","Suárez", "Ortega", "Delgado", "Castro", "Ortiz", "Rubio", "Marín", "Sanz", "Iglesias", "Núñez","Medina", "Garrido", "Cruz", "Calvo", "Gallego", "Vidal", "León", "Reyes", "Herrera", "Peña","Cabrera", "Flores", "Campos", "Vega", "Fuentes", "Carrasco", "Diez", "Caballero", "Nieto", "Aguilar"};
+	
+
+
+
+
+	public static void main(String[] args) {
+
+			//Cantidates
+
+			//inmobiliarias
 			int numInmo=500;
+			//personas
+			int trabajadores=500;
+			int inquilinos=1000;
+			int propietarios=1000;
+
+
+			//Variables dependientes
+			int cantidadPersonas=trabajadores+inquilinos+propietarios;
+
+
+			//llamada a los metodos
 			Inmobiliaria(numInmo);
 			oficina(numInmo);
+			persona(cantidadPersonas);
+			trabajador(trabajadores);
+			Inquilino(inquilinos);
+			propietarios(propietarios);
+
+
+
+			//texto de finalizacion
 			System.err.println("Finalizado");
 		}
 			
@@ -60,18 +93,17 @@ public class ScripDeCreacion {
 				System.out.println(e.toString());
 			}
 		}
-	
+		//clase que genera un DNI
 		public static String generarDni(){
 			DecimalFormat formato =new DecimalFormat("00000000");	
 			Random random=new Random();
 	
 			int numero=random.nextInt(1,99999999);
 			char letra=(char)random.nextInt(65,91);
-			System.out.println(letra);
-			String salida=formato.format(numero)+letra+"";
+			String salida="'"+formato.format(numero)+letra+"'";
 			return salida;
 		}
-	
+		//clase que crea la tabla inmobiliaria
 		public static void Inmobiliaria(int numeroLineas){
 			Random random=new Random();
 	
@@ -173,7 +205,7 @@ public class ScripDeCreacion {
 		guardarDatos(salida);
 		salida="";
 	}
-
+	//clase que crea la tabla oficina
 	public static void oficina(int numeroLineas){
 		//localidad-provincia
 		HashMap<String, String> provinciaLocalidad = new HashMap<>();
@@ -219,13 +251,8 @@ public class ScripDeCreacion {
         localidadCodigoPostal.put("Zafra", "06300");
 
 
-		//oficina
-		String[] direccion1={"Calle","Avenida","Paseo","Plaza","Bulevard",};
-		String[] direccion2={"Adrián", "Beatriz", "Carlos", "Daniela", "Elena","Francisco", "Gabriela", "Hugo", "Isabel", "Javier","Karla", "Luis", "Marta", "Nicolás", "Macedonia","Pablo", "Raquel", "Samuel", "Teresa", "Víctor","Alicia", "Gavilla", "Clara", "Diego", "Eva","Félix", "Gloria", "Héctor", "Irene", "Joaquín"};
-		/* cp generar 5 numeros */
-		String[] localidad={"Valladolid","Barcelona","Valencia","Vezdemarban","Alcalá de Henares", "Aínsa", "Albarracín", "Cangas de Onís", "Comillas","Cuenca", "Frigiliana", "Laguardia", "Olite", "Potes","Ronda", "Santillana del Mar", "Trujillo", "Úbeda", "Zafra"};
-		String[] provincias = {"Álava", "Albacete", "Alicante", "Almería", "Asturias","Ávila", "Badajoz", "Baleares", "Barcelona", "Burgos","Cáceres", "Cádiz", "Cantabria", "Castellón", "Ciudad Real","Córdoba", "Cuenca", "Gerona", "Granada", "Guadalajara","Guipúzcoa", "Huelva", "Huesca", "Jaén", "La Coruña","La Rioja", "Las Palmas", "León", "Lérida", "Lugo","Madrid", "Málaga", "Murcia", "Navarra", "Orense","Palencia", "Pontevedra", "Salamanca", "Santa Cruz de Tenerife", "Segovia","Sevilla", "Soria", "Tarragona", "Teruel", "Toledo","Valencia", "Valladolid", "Vizcaya", "Zamora", "Zaragoza"};
-
+		//Creacion
+		
 		String salida="";
 		Random random=new Random();
 		String loc="";
@@ -243,22 +270,79 @@ public class ScripDeCreacion {
 		salida="";
 	}
 
+	//clase que crea la tabla persona
+	public static void persona(int numeroLinesa){
 
+		Random random=new Random();
 
-
-	public static void principal() {
-
+		String salida="";
+		String dnii="";
 		
-		//Persona
-		/*generar 8 num y 1 char */
-		/*utilizar direccion 2 */
-		/* urar provincia y localidad */
-		/*DNI generar 9 numerosw */
+		for (int i = 0; i < numeroLinesa; i++) {
 
+			dnii=generarDni();
+			dni=Arrays.copyOf(dni, dni.length+1);
+			dni[i]=dnii;
+			salida+=inicio+"dni,nombre,apellidos,telefono"+medio+dnii+",'"+direccion2[random.nextInt(30)]+"','"+apellidos[random.nextInt(60)]+"','"+random.nextInt(100000000,999999999)+"'"+fin+"\n";
+		}
+		guardarDatos(salida);
+		salida="";
 
-		
-		
-		
 	}
-	
+
+	//clase que crea la tabla trabajador
+	public static void trabajador(int numeroLineas){
+		Random random=new Random();
+		LocalDate fechaBaja;
+		LocalDate fechaAlta;
+
+		String[] tipoContrato = {"PorHoras","Fijo","Temporal","FijoDiscontinuo","PorCondicionesDeLaProduccion"};
+		String salida="";
+		for (int i = numeroLineas; i > 0; i--) {
+			fechaAlta=LocalDate.of(random.nextInt(2000,2021), random.nextInt(1,13), random.nextInt(1,29));
+			fechaBaja=LocalDate.of(random.nextInt(2000,2035), random.nextInt(1,13), random.nextInt(1,29));
+			if (fechaBaja.isAfter(fechaAlta)) {
+				salida+=inicio+"dni,tipoContrato,fechaBaja,salarioBrutoAnual"+medio+dni[dni.length-1]+",'"+fechaAlta.toString()+"','"+tipoContrato[random.nextInt(5)]+"','"+fechaBaja.toString()+"',"+random.nextInt(24500,255000)+fin+"\n";
+				dni=Arrays.copyOf(dni, dni.length-1);
+			}
+
+		}
+		guardarDatos(salida);
+		salida="";
+	}
+
+	//clase que crea la tabla inquilino
+	public static void Inquilino(int numeroLineas){
+		Random random=new Random();
+		String[] tipoInquilino={"'Particular'","'Empresa'"};
+		String[] buscaOfertas={"'Si'","'No'"};
+
+		String salida="";
+		for (int i = numeroLineas; i > 0; i--) {
+
+			salida+=inicio+"dni,tipoInquilino,buscaOfertas"+medio+dni[dni.length-1]+","+tipoInquilino[random.nextInt(2)]+","+buscaOfertas[random.nextInt(2)]+fin+"\n";
+			dni=Arrays.copyOf(dni, dni.length-1);
+		}
+		guardarDatos(salida);
+		salida="";
+	}
+
+	//clase que crea la tabla propietario
+	public static void propietarios(int numeroLineas){
+		Random random=new Random();
+		String[] tipoCliente={"'Particular'","'Empresa'"};
+		int nViviendas=0;
+		String salida="";
+		for (int i = numeroLineas; i > 0; i--) {
+
+			numeroViviendas=Arrays.copyOf(numeroViviendas, numeroViviendas.length+1);
+			nViviendas=random.nextInt(1,10);
+			numeroViviendas[numeroViviendas.length-1]=nViviendas;
+
+			salida+=inicio+"dni,tipoCliente,nViviendas"+medio+dni[dni.length-1]+","+tipoCliente[random.nextInt(2)]+","+nViviendas+fin+"\n";
+			dni=Arrays.copyOf(dni, dni.length-1);
+		}
+		guardarDatos(salida);
+		salida="";
+	}
 }
