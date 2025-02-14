@@ -6,6 +6,9 @@ import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.Format;
 import java.util.Arrays;
+import java.util.Dictionary;
+import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.Random;
 
 public class ScripDeCreacion {
@@ -172,6 +175,50 @@ public class ScripDeCreacion {
 	}
 
 	public static void oficina(int numeroLineas){
+		//localidad-provincia
+		HashMap<String, String> provinciaLocalidad = new HashMap<>();
+        provinciaLocalidad.put("Valladolid", "Valladolid");
+        provinciaLocalidad.put("Barcelona", "Barcelona");
+        provinciaLocalidad.put("Valencia", "Valencia");
+        provinciaLocalidad.put("Vezdemarban", "Valladolid");
+        provinciaLocalidad.put("Alcalá de Henares", "Madrid");
+        provinciaLocalidad.put("Aínsa", "Huesca");
+        provinciaLocalidad.put("Albarracín", "Teruel");
+        provinciaLocalidad.put("Cangas de Onís", "Asturias");
+        provinciaLocalidad.put("Comillas", "Cantabria");
+        provinciaLocalidad.put("Cuenca", "Cuenca");
+        provinciaLocalidad.put("Frigiliana", "Málaga");
+        provinciaLocalidad.put("Laguardia", "Álava");
+        provinciaLocalidad.put("Olite", "Navarra");
+        provinciaLocalidad.put("Potes", "Cantabria");
+        provinciaLocalidad.put("Ronda", "Málaga");
+        provinciaLocalidad.put("Santillana del Mar", "Cantabria");
+        provinciaLocalidad.put("Trujillo", "Cáceres");
+        provinciaLocalidad.put("Úbeda", "Jaén");
+        provinciaLocalidad.put("Zafra", "Badajoz");
+		//localidas-cp
+		HashMap<String, String> localidadCodigoPostal = new HashMap<>();
+        localidadCodigoPostal.put("Valladolid", "47001");
+        localidadCodigoPostal.put("Barcelona", "08001");
+        localidadCodigoPostal.put("Valencia", "46001");
+        localidadCodigoPostal.put("Vezdemarban", "49800");
+        localidadCodigoPostal.put("Alcalá de Henares", "28801");
+        localidadCodigoPostal.put("Aínsa", "22330");
+        localidadCodigoPostal.put("Albarracín", "44100");
+        localidadCodigoPostal.put("Cangas de Onís", "33550");
+        localidadCodigoPostal.put("Comillas", "39520");
+        localidadCodigoPostal.put("Cuenca", "16001");
+        localidadCodigoPostal.put("Frigiliana", "29788");
+        localidadCodigoPostal.put("Laguardia", "01300");
+        localidadCodigoPostal.put("Olite", "31390");
+        localidadCodigoPostal.put("Potes", "39570");
+        localidadCodigoPostal.put("Ronda", "29400");
+        localidadCodigoPostal.put("Santillana del Mar", "39330");
+        localidadCodigoPostal.put("Trujillo", "10200");
+        localidadCodigoPostal.put("Úbeda", "23400");
+        localidadCodigoPostal.put("Zafra", "06300");
+
+
 		//oficina
 		String[] direccion1={"Calle","Avenida","Paseo","Plaza","Bulevard",};
 		String[] direccion2={"Adrián", "Beatriz", "Carlos", "Daniela", "Elena","Francisco", "Gabriela", "Hugo", "Isabel", "Javier","Karla", "Luis", "Marta", "Nicolás", "Macedonia","Pablo", "Raquel", "Samuel", "Teresa", "Víctor","Alicia", "Gavilla", "Clara", "Diego", "Eva","Félix", "Gloria", "Héctor", "Irene", "Joaquín"};
@@ -181,10 +228,14 @@ public class ScripDeCreacion {
 
 		String salida="";
 		Random random=new Random();
+		String loc="";
 
 		for (int i = 0; i < numeroLineas; i++) {
 			for (int j = 0; j < cantidadOficinas[i]; j++) {
-				salida+=inicio+"idInmoviliaria,idOficina,direccion,cp,localidad,provincia"+medio+(i+1)+","+(j+1)+",'"+direccion1[random.nextInt(5)]+" "+direccion2[random.nextInt(30)]+"',"+random.nextInt(10001,99999)+",'"+localidad[random.nextInt(19)]+"','"+provincias[random.nextInt(50)]+"',"+fin+"\n";
+
+				loc=localidad[random.nextInt(19)];
+
+				salida+=inicio+"idInmoviliaria,idOficina,direccion,cp,localidad,provincia"+medio+(i+1)+","+(j+1)+",'"+direccion1[random.nextInt(5)]+" "+direccion2[random.nextInt(30)]+"',"+localidadCodigoPostal.get(loc)+",'"+loc+"','"+provinciaLocalidad.get(loc)+"',"+fin+"\n";
 			}
 			
 		}
