@@ -40,13 +40,13 @@ public class ScripDeCreacion {
 			//Cantidates
 
 			//inmobiliarias
-			int numInmo=500;
+			int numInmo=2;
 			//personas
-			int trabajadores=500;
-			int inquilinos=1000;
-			int propietarios=1000;
+			int trabajadores=2;
+			int inquilinos=2;
+			int propietarios=2;
 			//viviendas
-			int viviendas=1000;
+			int viviendas=2;
 
 
 			//Variables dependientes
@@ -56,22 +56,19 @@ public class ScripDeCreacion {
 
 
 			//llamada a los metodos
-			Inmobiliaria(numInmo);
-			//oficina(numInmo);
-			//persona(cantidadPersonas);
-			//trabajador(trabajadores);
-			//Inquilino(inquilinos);
-			//propietarios(propietarios);
-			//infoLocalidad();
-			//preferenciasInquilino(inquilinos);
-			//vivienda(viviendas);
-			//propietarioVivienda(propietarios);
-			System.out.println("dom "+domicilios.length);
-			System.out.println("loc "+localidadesVivienda.length);
-			System.out.println("dni "+dni.length);
-			System.out.println("dniInc "+dniInquilino.length);
-			//contrato(inquilinos);
-			//infoZona();
+			Inmobiliaria(numInmo);//1
+			infoLocalidad();//1
+			persona(cantidadPersonas);//1
+			oficina(numInmo);//2
+			trabajador(trabajadores);//2
+			Inquilino(inquilinos);//2
+			propietarios(propietarios);//2
+			vivienda(viviendas);//2
+			infoZona();//2
+			preferenciasInquilino(inquilinos);//3
+			propietarioVivienda(propietarios);//3
+			contrato(inquilinos);//4
+
 
 
 
@@ -82,124 +79,124 @@ public class ScripDeCreacion {
 	private static void rellenarDiccionarios() {
 		//inicializacion de los diccionarios
 		//localidad-habitantes
-		localidadHabitantes.put("Valladolid", 298412);
-		localidadHabitantes.put("Barcelona", 1620343);
-		localidadHabitantes.put("Valencia", 791413);
-		localidadHabitantes.put("Vezdemarban", 200);
-		localidadHabitantes.put("Alcalá de Henares", 195649);
 		localidadHabitantes.put("Aínsa", 2175);
 		localidadHabitantes.put("Albarracín", 1016);
+		localidadHabitantes.put("Alcalá de Henares", 195649);
+		localidadHabitantes.put("Almería", 198533);
+		localidadHabitantes.put("Barcelona", 1620343);
+		localidadHabitantes.put("Bilbao", 345821);
+		localidadHabitantes.put("Burgos", 175821);
+		localidadHabitantes.put("Cádiz", 116979);
 		localidadHabitantes.put("Cangas de Onís", 6623);
 		localidadHabitantes.put("Comillas", 2281);
 		localidadHabitantes.put("Cuenca", 54672);
 		localidadHabitantes.put("Frigiliana", 3071);
-		localidadHabitantes.put("Laguardia", 1500);
-		localidadHabitantes.put("Olite", 3920);
-		localidadHabitantes.put("Potes", 1370);
-		localidadHabitantes.put("Ronda", 33677);
-		localidadHabitantes.put("Santillana del Mar", 4200);
-		localidadHabitantes.put("Trujillo", 9260);
-		localidadHabitantes.put("Úbeda", 34500);
-		localidadHabitantes.put("Zafra", 16700);
-		localidadHabitantes.put("Bilbao", 345821);
-		localidadHabitantes.put("Sevilla", 688711);
+		localidadHabitantes.put("Gijón", 271780);
 		localidadHabitantes.put("Granada", 232462);
-		localidadHabitantes.put("Salamanca", 144228);
-		localidadHabitantes.put("Toledo", 85085);
-		localidadHabitantes.put("Burgos", 175821);
+		localidadHabitantes.put("Huelva", 144258);
+		localidadHabitantes.put("Laguardia", 1500);
 		localidadHabitantes.put("León", 124303);
-		localidadHabitantes.put("Zaragoza", 674997);
+		localidadHabitantes.put("Logroño", 151113);
 		localidadHabitantes.put("Málaga", 578460);
 		localidadHabitantes.put("Murcia", 447182);
-		localidadHabitantes.put("Pamplona", 201653);
-		localidadHabitantes.put("Logroño", 151113);
-		localidadHabitantes.put("Santander", 172656);
-		localidadHabitantes.put("Cádiz", 116979);
-		localidadHabitantes.put("Huelva", 144258);
-		localidadHabitantes.put("Almería", 198533);
-		localidadHabitantes.put("San Sebastián", 186064);
-		localidadHabitantes.put("Gijón", 271780);
+		localidadHabitantes.put("Olite", 3920);
 		localidadHabitantes.put("Oviedo", 220020);
+		localidadHabitantes.put("Pamplona", 201653);
+		localidadHabitantes.put("Potes", 1370);
+		localidadHabitantes.put("Ronda", 33677);
+		localidadHabitantes.put("Salamanca", 144228);
+		localidadHabitantes.put("San Sebastián", 186064);
+		localidadHabitantes.put("Santander", 172656);
+		localidadHabitantes.put("Santillana del Mar", 4200);
+		localidadHabitantes.put("Sevilla", 688711);
+		localidadHabitantes.put("Toledo", 85085);
+		localidadHabitantes.put("Trujillo", 9260);
+		localidadHabitantes.put("Úbeda", 34500);
+		localidadHabitantes.put("Valencia", 791413);
+		localidadHabitantes.put("Valladolid", 298412);
+		localidadHabitantes.put("Vezdemarban", 200);
+		localidadHabitantes.put("Zafra", 16700);
+		localidadHabitantes.put("Zaragoza", 674997);
 
 		//localidad-provincia
-		provinciaLocalidad.put("Valladolid", "Valladolid");
-		provinciaLocalidad.put("Barcelona", "Barcelona");
-		provinciaLocalidad.put("Valencia", "Valencia");
-		provinciaLocalidad.put("Vezdemarban", "Zamora");
-		provinciaLocalidad.put("Alcalá de Henares", "Madrid");
 		provinciaLocalidad.put("Aínsa", "Huesca");
 		provinciaLocalidad.put("Albarracín", "Teruel");
+		provinciaLocalidad.put("Alcalá de Henares", "Madrid");
+		provinciaLocalidad.put("Almería", "Almería");
+		provinciaLocalidad.put("Barcelona", "Barcelona");
+		provinciaLocalidad.put("Bilbao", "Vizcaya");
+		provinciaLocalidad.put("Burgos", "Burgos");
+		provinciaLocalidad.put("Cádiz", "Cádiz");
 		provinciaLocalidad.put("Cangas de Onís", "Asturias");
 		provinciaLocalidad.put("Comillas", "Cantabria");
 		provinciaLocalidad.put("Cuenca", "Cuenca");
 		provinciaLocalidad.put("Frigiliana", "Málaga");
-		provinciaLocalidad.put("Laguardia", "Álava");
-		provinciaLocalidad.put("Olite", "Navarra");
-		provinciaLocalidad.put("Potes", "Cantabria");
-		provinciaLocalidad.put("Ronda", "Málaga");
-		provinciaLocalidad.put("Santillana del Mar", "Cantabria");
-		provinciaLocalidad.put("Trujillo", "Cáceres");
-		provinciaLocalidad.put("Úbeda", "Jaén");
-		provinciaLocalidad.put("Zafra", "Badajoz");
-		provinciaLocalidad.put("Bilbao", "Vizcaya");
-		provinciaLocalidad.put("Sevilla", "Sevilla");
+		provinciaLocalidad.put("Gijón", "Asturias");
 		provinciaLocalidad.put("Granada", "Granada");
-		provinciaLocalidad.put("Salamanca", "Salamanca");
-		provinciaLocalidad.put("Toledo", "Toledo");
-		provinciaLocalidad.put("Burgos", "Burgos");
+		provinciaLocalidad.put("Huelva", "Huelva");
+		provinciaLocalidad.put("Laguardia", "Álava");
 		provinciaLocalidad.put("León", "León");
-		provinciaLocalidad.put("Zaragoza", "Zaragoza");
+		provinciaLocalidad.put("Logroño", "La Rioja");
 		provinciaLocalidad.put("Málaga", "Málaga");
 		provinciaLocalidad.put("Murcia", "Murcia");
-		provinciaLocalidad.put("Pamplona", "Navarra");
-		provinciaLocalidad.put("Logroño", "La Rioja");
-		provinciaLocalidad.put("Santander", "Cantabria");
-		provinciaLocalidad.put("Cádiz", "Cádiz");
-		provinciaLocalidad.put("Huelva", "Huelva");
-		provinciaLocalidad.put("Almería", "Almería");
-		provinciaLocalidad.put("San Sebastián", "Guipúzcoa");
-		provinciaLocalidad.put("Gijón", "Asturias");
+		provinciaLocalidad.put("Olite", "Navarra");
 		provinciaLocalidad.put("Oviedo", "Asturias");
+		provinciaLocalidad.put("Pamplona", "Navarra");
+		provinciaLocalidad.put("Potes", "Cantabria");
+		provinciaLocalidad.put("Ronda", "Málaga");
+		provinciaLocalidad.put("Salamanca", "Salamanca");
+		provinciaLocalidad.put("San Sebastián", "Guipúzcoa");
+		provinciaLocalidad.put("Santander", "Cantabria");
+		provinciaLocalidad.put("Santillana del Mar", "Cantabria");
+		provinciaLocalidad.put("Sevilla", "Sevilla");
+		provinciaLocalidad.put("Toledo", "Toledo");
+		provinciaLocalidad.put("Trujillo", "Cáceres");
+		provinciaLocalidad.put("Úbeda", "Jaén");
+		provinciaLocalidad.put("Valencia", "Valencia");
+		provinciaLocalidad.put("Valladolid", "Valladolid");
+		provinciaLocalidad.put("Vezdemarban", "Zamora");
+		provinciaLocalidad.put("Zafra", "Badajoz");
+		provinciaLocalidad.put("Zaragoza", "Zaragoza");
 
 		//localidad-codigoPostal
-		localidadCodigoPostal.put("Valladolid", "47001");
-		localidadCodigoPostal.put("Barcelona", "08001");
-		localidadCodigoPostal.put("Valencia", "46001");
-		localidadCodigoPostal.put("Vezdemarban", "49800");
-		localidadCodigoPostal.put("Alcalá de Henares", "28801");
 		localidadCodigoPostal.put("Aínsa", "22330");
 		localidadCodigoPostal.put("Albarracín", "44100");
+		localidadCodigoPostal.put("Alcalá de Henares", "28801");
+		localidadCodigoPostal.put("Almería", "04001");
+		localidadCodigoPostal.put("Barcelona", "08001");
+		localidadCodigoPostal.put("Bilbao", "48001");
+		localidadCodigoPostal.put("Burgos", "09001");
+		localidadCodigoPostal.put("Cádiz", "11001");
 		localidadCodigoPostal.put("Cangas de Onís", "33550");
 		localidadCodigoPostal.put("Comillas", "39520");
 		localidadCodigoPostal.put("Cuenca", "16001");
 		localidadCodigoPostal.put("Frigiliana", "29788");
-		localidadCodigoPostal.put("Laguardia", "01300");
-		localidadCodigoPostal.put("Olite", "31390");
-		localidadCodigoPostal.put("Potes", "39570");
-		localidadCodigoPostal.put("Ronda", "29400");
-		localidadCodigoPostal.put("Santillana del Mar", "39330");
-		localidadCodigoPostal.put("Trujillo", "10200");
-		localidadCodigoPostal.put("Úbeda", "23400");
-		localidadCodigoPostal.put("Zafra", "06300");
-		localidadCodigoPostal.put("Bilbao", "48001");
-		localidadCodigoPostal.put("Sevilla", "41001");
+		localidadCodigoPostal.put("Gijón", "33201");
 		localidadCodigoPostal.put("Granada", "18001");
-		localidadCodigoPostal.put("Salamanca", "37001");
-		localidadCodigoPostal.put("Toledo", "45001");
-		localidadCodigoPostal.put("Burgos", "09001");
+		localidadCodigoPostal.put("Huelva", "21001");
+		localidadCodigoPostal.put("Laguardia", "01300");
 		localidadCodigoPostal.put("León", "24001");
-		localidadCodigoPostal.put("Zaragoza", "50001");
+		localidadCodigoPostal.put("Logroño", "26001");
 		localidadCodigoPostal.put("Málaga", "29001");
 		localidadCodigoPostal.put("Murcia", "30001");
-		localidadCodigoPostal.put("Pamplona", "31001");
-		localidadCodigoPostal.put("Logroño", "26001");
-		localidadCodigoPostal.put("Santander", "39001");
-		localidadCodigoPostal.put("Cádiz", "11001");
-		localidadCodigoPostal.put("Huelva", "21001");
-		localidadCodigoPostal.put("Almería", "04001");
-		localidadCodigoPostal.put("San Sebastián", "20001");
-		localidadCodigoPostal.put("Gijón", "33201");
+		localidadCodigoPostal.put("Olite", "31390");
 		localidadCodigoPostal.put("Oviedo", "33001");
+		localidadCodigoPostal.put("Pamplona", "31001");
+		localidadCodigoPostal.put("Potes", "39570");
+		localidadCodigoPostal.put("Ronda", "29400");
+		localidadCodigoPostal.put("Salamanca", "37001");
+		localidadCodigoPostal.put("San Sebastián", "20001");
+		localidadCodigoPostal.put("Santander", "39001");
+		localidadCodigoPostal.put("Santillana del Mar", "39330");
+		localidadCodigoPostal.put("Sevilla", "41001");
+		localidadCodigoPostal.put("Toledo", "45001");
+		localidadCodigoPostal.put("Trujillo", "10200");
+		localidadCodigoPostal.put("Úbeda", "23400");
+		localidadCodigoPostal.put("Valencia", "46001");
+		localidadCodigoPostal.put("Valladolid", "47001");
+		localidadCodigoPostal.put("Vezdemarban", "49800");
+		localidadCodigoPostal.put("Zafra", "06300");
+		localidadCodigoPostal.put("Zaragoza", "50001");
 	}
 		
 		//clase que guarda los datos en un archivo
@@ -225,7 +222,7 @@ public class ScripDeCreacion {
 		//metodo que genera el domicilio
 		public static String generarDomicilio(){
 			Random random=new Random();
-			String salida=direccion1[random.nextInt(5)]+" "+direccion2[random.nextInt(30)]+"numero "+random.nextInt(1,100);
+			String salida="'"+direccion1[random.nextInt(5)]+" "+direccion2[random.nextInt(30)]+" numero "+random.nextInt(1,100)+"'";
 			return salida;
 		}
 
@@ -235,8 +232,8 @@ public class ScripDeCreacion {
 			Random random=new Random();
 	
 			String[] Inmobiliarias = {"Global Realty", "Casa Bella", "Prime Properties", "Urban Nest", "Elite Estates","Dream Homes", "Prestige Realty", "Horizon Homes", "Luxe Living", "Royal Realty","Green Acres", "Blue Sky Realty", "Golden Gate Properties", "Silver Lining Realty", "Emerald Estates","Diamond Realty", "Sapphire Homes", "Crystal Clear Realty", "Sunset Realty", "Sunrise Estates","Ocean View Realty", "Mountain Peak Properties", "Riverfront Realty", "Lakeside Estates", "Cityscape Realty","Suburban Homes", "Country Living Realty", "Urban Oasis", "Metro Realty", "Skyline Properties","Landmark Realty", "Heritage Homes", "Classic Realty", "Modern Living", "Trendy Estates","Chic Realty", "Elegant Homes", "Stylish Realty", "Cozy Nest Realty", "Family First Realty","Community Realty", "Neighborhood Homes", "Friendly Realty", "Trustworthy Estates", "Reliable Realty","Secure Homes", "Safe Haven Realty", "Comfort Realty", "Serenity Estates", "Peaceful Living Realty","Urban Abodes", "Vista Realty", "Pinnacle Properties", "Opulent Estates", "Vintage Realty","Majestic Homes", "Supreme Realty", "NextGen Realty", "Infinite Homes", "Bright Future Realty","Urban Dreams", "Epic Realty", "Heavenly Homes", "Ultimate Realty", "Premium Properties","Solid Foundations", "Zenith Realty", "Elysian Estates", "Infinite Realty", "Dreamland Homes","Eternal Realty", "Bliss Homes", "Terra Firma Realty", "New Age Realty", "Veritas Realty","Pure Realty", "Luminous Realty", "Vanguard Properties", "Serene Estates", "Harmonic Homes","First Class Realty", "City Dreams", "Green Haven Realty", "Comfort Homes", "Gem Realty","Affinity Realty", "Zen Homes", "Sky High Realty", "Crown Realty", "Essence Estates","Aspire Realty", "Empire Realty", "Fortune Homes", "Infinite Possibilities Realty", "Legacy Realty","Monarch Homes", "Enchanted Realty", "Brightside Realty", "Crescent Realty", "Cosmos Realty","Radiant Realty", "Aurora Estates", "Prosperity Realty", "Valiant Homes", "Ace Realty","Pillar Realty", "Apex Realty", "Nexus Realty", "Heritage Estates", "Noble Realty","Harmony Realty", "Beacon Realty", "Pathway Realty", "Ambition Realty", "Civic Realty","True Realty", "Victory Realty", "Generations Realty", "Perfection Realty", "Infinity Realty","Elevation Realty", "Destiny Realty", "Aspiration Realty", "Sunlight Realty", "Dawn Realty","Prospect Realty", "Distinctive Realty", "Core Realty", "Unity Realty", "Virtue Realty","Sincere Realty", "Horizon Realty", "Divine Realty", "Dreamscape Realty", "Panorama Realty","Symphony Realty", "Grace Realty", "Trust Realty", "Noble Estates", "Landmark Estates","Prospect Estates", "Optimum Realty", "Foundation Realty", "Generous Realty", "Dynamic Realty","Reflect Realty", "Humble Realty", "Premier Realty", "Legacy Estates", "Pioneer Realty","Distinct Realty", "Genuine Realty", "Ascend Realty", "Remarkable Realty", "Ambitious Realty","Realty Vision", "Serendipity Realty", "Prestige Estates", "Valued Realty", "Innovative Realty","Realty One", "Golden Realty", "Infinite Estates", "Elevate Realty", "Clarity Realty","Wealth Realty", "Momentum Realty", "Tranquil Realty", "Evolution Realty", "Empower Realty","Legendary Realty", "Prime Realty", "Reliance Realty", "Catalyst Realty", "Realty Elite","Horizon Estates", "Achieve Realty", "Realty Excellence", "Realty Prosper", "Integrity Realty","Epic Estates", "Realty Inspired", "Apex Estates", "Unity Estates", "Symbiotic Realty","Creative Realty", "Dynamic Estates", "Empower Estates", "Radiant Homes", "Revolution Realty","Glory Realty", "Elite Homes", "Realty Prime", "Serenity Homes", "Royal Estates","Resilient Realty", "Dream Estates", "Victory Estates", "Marvel Realty", "Infinity Estates","Aspirations Realty", "Destined Realty", "Hopes Realty", "Optimistic Realty", "Uplift Realty","Vision Realty", "Potential Realty", "Bright Realty", "Future Realty", "Prospect Estates","Trustworthy Realty", "Reliable Estates", "Genuine Estates", "True Vision Realty", "Honest Realty","Integrity Estates", "Noble Homes", "Horizon Homes", "Beyond Realty", "Pinnacle Estates","Optimal Realty", "Dreams Realty", "Serenity Estates", "Legacy Homes", "Ambition Estates","Achievers Realty", "Innovators Realty", "Success Realty", "Thriving Realty", "Triumph Realty","Excellence Realty", "Peak Realty", "Prestige Realty", "Prime Estates", "Inspire Realty","Bliss Estates", "Bright Horizon Realty", "Perfection Homes", "Eminent Realty", "Grand Realty","Majestic Estates", "Realty Pinnacle", "Superior Realty", "Royalty Realty", "First Class Homes","Benchmark Realty", "Diamond Realty", "Realty Champions", "Luxury Estates", "Premier Estates","Elite Estates", "Kingdom Realty", "Crown Homes", "Supreme Estates", "Sovereign Realty","Infinite Realty", "Prosper Realty", "Merit Realty", "Legendary Estates", "Infinity Homes","Visionary Realty", "Distinguished Realty", "Dynamic Homes", "Ambition Homes", "Radiant Estates","Realty Horizon", "Success Estates", "Innovation Realty", "Elevate Homes", "Ascension Realty","Glory Estates", "Ultimate Realty", "Fortune Realty", "Prosperity Estates", "Realty Vanguard","Heritage Realty", "Noble Vision Realty", "Dynamic Estates", "Premier Realty", "Elite Estates","Apex Realty", "Crescent Realty", "Unity Realty", "Victory Estates", "Golden Realty","Dream Realty", "Prestige Estates", "Inspire Homes", "Epic Realty", "Supreme Homes","Realty Vision", "Foundation Estates", "Optimum Homes", "Serene Realty", "Noble Realty","Pathway Realty", "Prospect Homes", "Honest Estates", "Vanguard Estates", "Realty Excellence","Infinite Homes", "Potential Estates", "Catalyst Realty", "True Realty", "Bliss Realty","Dream Estates", "Epic Vision Realty", "Victory Realty", "Prosper Homes", "Radiant Realty","Sunrise Realty", "Sunset Realty", "Elevation Homes", "Innovative Estates", "Elite Realty","Horizon Vision Realty", "Pure Realty", "Elegant Estates", "Realty Ascend", "Symphony Estates","Zen Realty", "Ace Realty", "Affinity Estates", "Vision Estates", "Genuine Homes","Dynamic Vision Realty", "Potential Realty", "Ascend Estates", "Momentum Realty", "Radiance Realty","Trust Estates", "True Vision Realty", "Infinite Vision Realty", "Realty Ambition", "Serendipity Estates","Pinnacle Realty", "Golden Estates", "Realty Legacy", "Noble Ventures Realty", "Dynamic Vision Realty","Bright Future Estates", "Infinite Horizon Realty", "Victory Homes", "Realty Supreme", "Prime Vision Realty","Innovative Vision Realty", "Prestige Homes", "Visionary Estates", "Elevate Vision Realty", "Legacy Realty","Dynamic Vision Estates", "Prime Homes", "Innovative Ventures Realty", "Inspire Vision Realty", "Horizon Ventures Realty","Victory Vision Realty", "Radiant Vision Realty", "Optimal Vision Realty", "Innovation Vision Realty", "Serene Vision Realty","Premier Vision Realty", "Heritage Vision Realty", "Infinite Potential Realty", "Infinity Vision Estates", "Elite Vision Realty","First Class Vision Realty", "Optimal Vision Estates", "Crescent Vision Realty", "Victory Ventures Realty", "Epic Vision Homes","Legacy Vision Estates", "Legendary Vision Realty", "Aspire Vision Realty", "Ambition Vision Realty", "Noble Vision Estates","Vision Ventures Realty", "Dynamic Potential Realty", "Success Vision Realty", "Pathway Vision Realty", "Symphony Vision Realty","Unity Vision Realty", "Realty Prime Vision", "Vision Infinity Realty", "Elevation Vision Estates", "Crescent Vision Estates","Optimal Ventures Realty", "Aspire Ventures Realty", "Brightside Vision Realty", "Serendipity Vision Realty", "Premier Homes","Trustworthy Vision Realty", "Epic Potential Realty", "Inspire Potential Realty", "Prospect Vision Realty", "Heritage Potential Realty","Radiant Potential Realty", "Dynamic Potential Estates", "Victory Potential Realty", "Noble Potential Estates", "Elite Potential"};
-			String[] categorias = {"Regional","Nacional","Provincial","Internacional"};
-			String paisSede = "España";
+			String[] categorias = {"'Regional'","'Nacional'","'Provincial'","'Internacional'"};
+			String paisSede = "'España'";
 			/*nº oficinas */ 
 			String salida="";
 			int n0ficinas=0;
@@ -268,7 +265,7 @@ public class ScripDeCreacion {
 
 				loc=localidad[random.nextInt(19)];
 
-				salida+=inicio+"oficina"+inicio2+"idInmoviliaria,idOficina,direccion,cp,localidad,provincia"+medio+(i+1)+","+(j+1)+",'"+direccion1[random.nextInt(5)]+" "+direccion2[random.nextInt(30)]+"',"+localidadCodigoPostal.get(loc)+",'"+loc+"','"+provinciaLocalidad.get(loc)+"',"+fin+"\n";
+				salida+=inicio+"oficina"+inicio2+"idInmoviliaria,idOficina,direccion,cp,localidad,provincia"+medio+(i+1)+","+(j+1)+",'"+direccion1[random.nextInt(5)]+" "+direccion2[random.nextInt(30)]+"',"+localidadCodigoPostal.get(loc)+",'"+loc+"','"+provinciaLocalidad.get(loc)+"'"+fin+"\n";
 				oficinas=Arrays.copyOf(oficinas, oficinas.length+1);
 				oficinas[oficinas.length-1]=(i+1)+","+(j+1);
 			}
@@ -310,7 +307,7 @@ public class ScripDeCreacion {
 			fechaAlta=LocalDate.of(random.nextInt(2000,2021), random.nextInt(1,13), random.nextInt(1,29));
 			fechaBaja=LocalDate.of(random.nextInt(2000,2035), random.nextInt(1,13), random.nextInt(1,29));
 			if (fechaBaja.isAfter(fechaAlta)) {
-				salida+=inicio+"trabajador"+inicio2+"dni,tipoContrato,fechaBaja,salarioBrutoAnual"+medio+dni[dni.length-1]+",'"+fechaAlta.toString()+"','"+tipoContrato[random.nextInt(5)]+"','"+fechaBaja.toString()+"',"+random.nextInt(24500,255000)+fin+"\n";
+				salida+=inicio+"trabajador"+inicio2+"dni,fechaAlta,tipoContrato,fechaBaja,salarioBrutoAnual"+medio+dni[dni.length-1]+",'"+fechaAlta.toString()+"','"+tipoContrato[random.nextInt(5)]+"','"+fechaBaja.toString()+"',"+random.nextInt(24500,255000)+fin+"\n";
 				dni=Arrays.copyOf(dni, dni.length-1);
 
 			}else{
@@ -326,7 +323,7 @@ public class ScripDeCreacion {
 	public static void Inquilino(int numeroLineas) {
     Random random = new Random();
     String[] tipoInquilino = {"'Particular'", "'Empresa'"};
-    String[] buscaOfertas = {"'Si'", "'No'"};
+    String[] buscaOfertas = {"True", "False"};
 
     String salida = "";
     for (int i = numeroLineas; i > 0; i--) {
@@ -369,9 +366,10 @@ public class ScripDeCreacion {
 
 		Random random=new Random();
 		String salida="";
+		int loc=0;
 		for (int i = numeroLineas; i > 0; i--) {
-			
-			salida+=inicio+"preferenciasInquilino"+inicio2+"dni,localidad,provincia,metrosMinimo,metrosMaximo,nBanos,garaje,precioMaximo"+medio+dniInquilino[dniInquilino.length-1]+",'"+localidad[random.nextInt(19)]+"','"+provinciaLocalidad.get(localidad[random.nextInt(19)])+"',"+random.nextInt(20,80)+","+random.nextInt(90,200)+","+random.nextInt(1,4)+",'"+(random.nextInt(0,2)==1?"True":"False")+"',"+random.nextInt(700,2000)+fin+"\n";
+			loc=random.nextInt(19);
+			salida+=inicio+"preferenciasInquilino"+inicio2+"dni,localidad,provincia,metrosMinimo,metrosMaximo,nBanos,garaje,precioMaximo"+medio+dniInquilino[dniInquilino.length-1]+",'"+localidad[loc]+"','"+provinciaLocalidad.get(localidad[loc])+"',"+random.nextInt(20,80)+","+random.nextInt(90,200)+","+random.nextInt(1,4)+","+(random.nextInt(0,2)==1?"True":"False")+","+random.nextInt(700,2000)+fin+"\n";
 			
 			dni=Arrays.copyOf(dni, dni.length+1);
 			dni[dni.length-1]=dniInquilino[dniInquilino.length-1];
@@ -400,13 +398,13 @@ public class ScripDeCreacion {
 		String salida="";
 		LocalDate fechaReforma;
 		for (int i = numeroLineas; i > 0; i--) {
-			fechaReforma=LocalDate.of(random.nextInt(2000,2021), random.nextInt(1,13), random.nextInt(1,29));
+			fechaReforma=LocalDate.of(random.nextInt(1990,2021), random.nextInt(1,13), random.nextInt(1,29));
 			domicilios=Arrays.copyOf(domicilios, domicilios.length+1);
 			domicilios[domicilios.length-1]=generarDomicilio();
 			localidadesVivienda=Arrays.copyOf(localidadesVivienda, localidadesVivienda.length+1);
 			localidadesVivienda[localidadesVivienda.length-1]=random.nextInt(19);
 
-			salida+=inicio+"vivienda"+inicio2+"domicilio,localidad,provincia,cp,metrosConstruidos,metrosUtiles,ascensor,nHabitaciones,nBanos,tipoVentanas,tipoSuelo,ultimaReforma,precioMes,plazasGaraje,alquilado,metrosTerraza,trastero"+medio+"'"+domicilios[domicilios.length-1]+"','"+localidad[localidadesVivienda[localidadesVivienda.length-1]]+"','"+provinciaLocalidad.get(localidad[random.nextInt(19)])+"',"+localidadCodigoPostal.get(localidad[random.nextInt(19)])+","+random.nextInt(50,200)+","+random.nextInt(40,150)+","+(random.nextInt(0,2)==1?"True":"False")+","+random.nextInt(1,6)+","+random.nextInt(1,4)+",'"+(random.nextInt(0,2)==1?"Aluminio":"PVC")+"','"+(random.nextInt(0,2)==1?"Parquet":"Gres")+"','"+fechaReforma.toString()+"',"+random.nextInt(300,2000)+","+random.nextInt(0,3)+","+(random.nextInt(0,2)==1?"True":"False")+","+random.nextInt(0,50)+","+(random.nextInt(0,2)==1?"True":"False")+fin+"\n";
+			salida+=inicio+"vivienda"+inicio2+"domicilio,localidad,provincia,cp,metrosConstruidos,metrosUtiles,ascensor,nHabitaciones,nBanos,tipoVentanas,tipoSuelo,ultimaReforma,precioMes,plazasGaraje,alquilado,metrosTerraza,trastero"+medio+domicilios[domicilios.length-1]+",'"+localidad[localidadesVivienda[localidadesVivienda.length-1]]+"','"+provinciaLocalidad.get(localidad[localidadesVivienda[localidadesVivienda.length-1]])+"',"+localidadCodigoPostal.get(localidad[random.nextInt(19)])+","+random.nextInt(50,200)+","+random.nextInt(40,150)+","+(random.nextInt(0,2)==1?"True":"False")+","+random.nextInt(1,6)+","+random.nextInt(1,4)+",'"+(random.nextInt(0,2)==1?"Aluminio":"PVC")+"','"+(random.nextInt(0,2)==1?"Parquet":"Gres")+"','"+fechaReforma.toString()+"',"+random.nextInt(300,2000)+","+random.nextInt(0,3)+","+(random.nextInt(0,2)==1?"True":"False")+","+random.nextInt(0,50)+","+(random.nextInt(0,2)==1?"True":"False")+fin+"\n";
 		}
 		guardarDatos(salida);
 
@@ -418,7 +416,7 @@ public class ScripDeCreacion {
 		Random random=new Random();
 		String salida="";
 		for (int i = 0; i < numeroLineas; i++) {
-			salida+=inicio+"propietarioVivienda"+inicio2+"dni,domicilio,localidad,provincia,porcentaje"+medio+dni3[dni3.length-(i+1)]+",'"+domicilios[domicilios.length-(i+1)]+"','"+localidad[localidadesVivienda[localidadesVivienda.length-(i+1)]]+"','"+provinciaLocalidad.get(localidad[random.nextInt(19)])+"',"+random.nextInt(1,101)+fin+"\n";
+			salida+=inicio+"propietarioVivienda"+inicio2+"dni,domicilio,localidad,provincia,porcentaje"+medio+dni3[dni3.length-(i+1)]+",'"+domicilios[domicilios.length-(i+1)]+"','"+localidad[localidadesVivienda[localidadesVivienda.length-(i+1)]]+"','"+provinciaLocalidad.get(localidad[localidadesVivienda[localidadesVivienda.length-(i+1)]])+"',"+random.nextInt(1,101)+fin+"\n";
 			
 		}
 		guardarDatos(salida);
@@ -441,7 +439,7 @@ public class ScripDeCreacion {
 
 				oficina=oficinas[random.nextInt(oficinas.length)];
 
-				salida+=inicio+"contrato"+inicio2+"dniInquilino,domicilio,localidad,provincia,fechaFirma,duracion,fechaFin,estadoInicialCasa,estadoFinalCasa,fianza,fianzaDevuelta,oficina,inmoviliaria"+medio+dni[dni.length-1]+",'"+domicilios[domicilios.length-1]+"','"+localidad[localidadesVivienda[localidadesVivienda.length-1]]+"','"+provinciaLocalidad.get(localidad[random.nextInt(19)])+"','"+fechaInicio.toString()+"',"+random.nextInt(1,37)+",'"+fechaFin.toString()+"','"+(random.nextInt(0,2)==1?"Bueno":"Malo")+"','"+(random.nextInt(0,2)==1?"Bueno":"Malo")+"',"+random.nextInt(100,1000)+","+(random.nextInt(0,2)==1?"True":"False")+","+oficina+fin+"\n";
+				salida+=inicio+"contrato"+inicio2+"dniInquilino,domicilio,localidad,provincia,fechaFirma,duracion,fechaFin,estadoInicialCasa,estadoFinalCasa,fianza,fianzaDevuelta,oficina,inmoviliaria"+medio+dni[dni.length-1]+","+domicilios[domicilios.length-1]+",'"+localidad[localidadesVivienda[localidadesVivienda.length-1]]+"','"+provinciaLocalidad.get(localidad[localidadesVivienda[localidadesVivienda.length-1]])+"',"+fechaInicio.toString()+","+random.nextInt(1,37)+","+fechaFin.toString()+",'"+(random.nextInt(0,2)==1?"Bueno":"Malo")+"','"+(random.nextInt(0,2)==1?"Bueno":"Malo")+"',"+random.nextInt(100,1000)+","+(random.nextInt(0,2)==1?"True":"False")+","+oficina+fin+"\n";
 
 				DtContrato=Arrays.copyOf(DtContrato, DtContrato.length+1);
 				DtContrato[DtContrato.length-1]=new String[2];
@@ -475,7 +473,7 @@ public class ScripDeCreacion {
 			fechaPrevistaPago=LocalDate.parse(DtContrato[DtContrato.length-1][1]);
 			fechaRealPago=fechaPrevistaPago.plusDays(random.nextInt(periodoPago*28));
 
-			salida+=inicio+"pago"+inicio2+"dni.domicilio,localidad,provincia,cantidad,fechaPrevistaPago,fechaRealPago,periodoPago"+medio+DtContrato[DtContrato.length-1][0]+","+random.nextInt(100,2000)+",'"+fechaPrevistaPago+"','"+fechaRealPago+"',"+periodoPago+fin+"\n";
+			salida+=inicio+"pago"+inicio2+"dni,domicilio,localidad,provincia,cantidad,fechaPrevistaPago,fechaRealPago,periodoPago"+medio+DtContrato[DtContrato.length-1][0]+","+random.nextInt(100,2000)+","+fechaPrevistaPago+","+fechaRealPago+","+periodoPago+fin+"\n";
 			DtContrato=Arrays.copyOf(DtContrato, DtContrato.length-1);
 		}
 		guardarDatos(salida);
