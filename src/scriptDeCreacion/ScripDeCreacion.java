@@ -439,11 +439,11 @@ public class ScripDeCreacion {
 
 				oficina=oficinas[random.nextInt(oficinas.length)];
 
-				salida+=inicio+"contrato"+inicio2+"dniInquilino,domicilio,localidad,provincia,fechaFirma,duracion,fechaFin,estadoInicialCasa,estadoFinalCasa,fianza,fianzaDevuelta,oficina,inmoviliaria"+medio+dni[dni.length-1]+","+domicilios[domicilios.length-1]+",'"+localidad[localidadesVivienda[localidadesVivienda.length-1]]+"','"+provinciaLocalidad.get(localidad[localidadesVivienda[localidadesVivienda.length-1]])+"',"+fechaInicio.toString()+","+random.nextInt(1,37)+","+fechaFin.toString()+",'"+(random.nextInt(0,2)==1?"Bueno":"Malo")+"','"+(random.nextInt(0,2)==1?"Bueno":"Malo")+"',"+random.nextInt(100,1000)+","+(random.nextInt(0,2)==1?"True":"False")+","+oficina+fin+"\n";
+				salida+=inicio+"contrato"+inicio2+"dniInquilino,domicilio,localidad,provincia,fechaFirma,duracion,fechaFin,estadoInicialCasa,estadoFinalCasa,fianza,fianzaDevuelta,oficina,inmoviliaria"+medio+dni[dni.length-1]+","+domicilios[domicilios.length-1]+",'"+localidad[localidadesVivienda[localidadesVivienda.length-1]]+"','"+provinciaLocalidad.get(localidad[localidadesVivienda[localidadesVivienda.length-1]])+"','"+fechaInicio.toString()+"',"+random.nextInt(1,37)+",'"+fechaFin.toString()+"','"+(random.nextInt(0,2)==1?"Bueno":"Malo")+"','"+(random.nextInt(0,2)==1?"Bueno":"Malo")+"',"+random.nextInt(100,1000)+","+(random.nextInt(0,2)==1?"True":"False")+","+oficina+fin+"\n";
 
 				DtContrato=Arrays.copyOf(DtContrato, DtContrato.length+1);
 				DtContrato[DtContrato.length-1]=new String[2];
-				DtContrato[DtContrato.length-1][0]=dni[dni.length-1]+","+domicilios[domicilios.length-1]+","+localidad[localidadesVivienda[localidadesVivienda.length-1]]+","+provinciaLocalidad.get(localidad[random.nextInt(19)])+","+fechaInicio.toString();
+				DtContrato[DtContrato.length-1][0]=dni[dni.length-1]+","+domicilios[domicilios.length-1]+","+localidad[localidadesVivienda[localidadesVivienda.length-1]]+","+provinciaLocalidad.get(localidad[random.nextInt(19)])+",'"+fechaInicio.toString()+"'";	
 				DtContrato[DtContrato.length-1][1]=fechaInicio.toString();
 				
 				dni=Arrays.copyOf(dni, dni.length-1);
@@ -473,7 +473,7 @@ public class ScripDeCreacion {
 			fechaPrevistaPago=LocalDate.parse(DtContrato[DtContrato.length-1][1]);
 			fechaRealPago=fechaPrevistaPago.plusDays(random.nextInt(periodoPago*28));
 
-			salida+=inicio+"pago"+inicio2+"dni,domicilio,localidad,provincia,cantidad,fechaPrevistaPago,fechaRealPago,periodoPago"+medio+DtContrato[DtContrato.length-1][0]+","+random.nextInt(100,2000)+","+fechaPrevistaPago+","+fechaRealPago+","+periodoPago+fin+"\n";
+			salida+=inicio+"pago"+inicio2+"dni,domicilio,localidad,provincia,cantidad,fechaPrevistaPago,fechaRealPago,periodoPago"+medio+DtContrato[DtContrato.length-1][0]+","+random.nextInt(100,2000)+",'"+fechaPrevistaPago+"','"+fechaRealPago+"',"+periodoPago+fin+"\n";
 			DtContrato=Arrays.copyOf(DtContrato, DtContrato.length-1);
 		}
 		guardarDatos(salida);
