@@ -10,7 +10,13 @@ import java.util.HashMap;
 import java.util.Random;
 
 
-//dni pago esta mal referenciado conta
+/*
+ * hay tabajadores que son inquilinos y propietarios
+ * propietarios tienen varias viviendas
+ * clientes pueden tener pagos pendientes/atrasados
+ * inquilinos tienen varios contratos realizados
+ * inquilinos que han sido trabajadores
+ */
 public class ScripDeCreacion {
 
 	//variables estaticas para uso general
@@ -18,6 +24,7 @@ public class ScripDeCreacion {
 	private static String[] dni={};
 	private static String[] dniInquilino={};
 	private static String[] dni3={};
+	private static String[] dniTrabajadorInquilino={};
 	private static String[] domicilios={};
 	private static String[] oficinas={};
 	private static int[] localidadesVivienda={};
@@ -241,7 +248,7 @@ public class ScripDeCreacion {
 			int n0ficinas=0;
 			for (int i = 0; i < numeroLineas; i++) {
 				n0ficinas=random.nextInt(1,10);
-				salida+=inicio+"inmoviliaria"+inicio2+"idInmoviliaria,nombreComercial,categoria,nOficinas,paisSede"+medio+(i+1)+",'"+Inmobiliarias[random.nextInt(0,400)]+"',"+categorias[random.nextInt(4)]+","+n0ficinas+","+paisSede+fin+"\n";
+				salida+=inicio+"inmoviliaria"+inicio2+"idInmobiliaria,nombreComercial,categoria,nOficinas,paisSede"+medio+(i+1)+",'"+Inmobiliarias[random.nextInt(0,400)]+"',"+categorias[random.nextInt(4)]+","+n0ficinas+","+paisSede+fin+"\n";
 				
 				idInmoviliaria=Arrays.copyOf(idInmoviliaria, idInmoviliaria.length+1);
 				idInmoviliaria[i]=i+"";
@@ -310,7 +317,14 @@ public class ScripDeCreacion {
 			fechaBaja=LocalDate.of(random.nextInt(2000,2035), random.nextInt(1,13), random.nextInt(1,29));
 			if (fechaBaja.isAfter(fechaAlta)) {
 				salida+=inicio+"trabajador"+inicio2+"dni,fechaAlta,tipoContrato,fechaBaja,salarioBrutoAnual"+medio+dni[dni.length-1]+",'"+fechaAlta.toString()+"','"+tipoContrato[random.nextInt(5)]+"','"+fechaBaja.toString()+"',"+random.nextInt(24500,255000)+fin+"\n";
+				
+				if (i%(numeroLineas/10)==0) {
+					dniTrabajadorInquilino=Arrays.copyOf(dniTrabajadorInquilino, dniTrabajadorInquilino.length+1);
+					dniTrabajadorInquilino[dniTrabajadorInquilino.length-1]=dni[dni.length-1];
+				}
+				
 				dni=Arrays.copyOf(dni, dni.length-1);
+				
 
 			}else{
 				i++;
@@ -328,13 +342,19 @@ public class ScripDeCreacion {
     String[] buscaOfertas = {"True", "False"};
 
     String salida = "";
-    for (int i = numeroLineas; i > 0; i--) {
+    for (int i = (numeroLineas)+dniTrabajadorInquilino.length; i > 0; i--) {
         if (dni.length > 0) {
             dniInquilino = Arrays.copyOf(dniInquilino, dniInquilino.length + 1);
             dniInquilino[dniInquilino.length - 1] = dni[dni.length - 1];
             salida += inicio + "inquilino" + inicio2 + "dni,tipoInquilino,buscaOfertas" + medio + dni[dni.length - 1] + "," + tipoInquilino[random.nextInt(2)] + "," + buscaOfertas[random.nextInt(2)] + fin + "\n";
             dni = Arrays.copyOf(dni, dni.length - 1);
-        }
+        }else{
+			dniInquilino = Arrays.copyOf(dniInquilino, dniInquilino.length + 1);
+            dniInquilino[dniInquilino.length - 1] = dniTrabajadorInquilino[dniTrabajadorInquilino.length - 1];
+            salida += inicio + "inquilino" + inicio2 + "dni,tipoInquilino,buscaOfertas" + medio + dni[dni.length - 1] + "," + tipoInquilino[random.nextInt(2)] + "," + buscaOfertas[random.nextInt(2)] + fin + "\n";
+            
+			dniTrabajadorInquilino=Arrays.copyOf(dniTrabajadorInquilino, dniTrabajadorInquilino.length-1);
+		}
     }
 	System.out.println("dniInc "+dniInquilino.length);
     guardarDatos(salida);
