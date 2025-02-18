@@ -46,9 +46,9 @@ public class ScripDeCreacion {
 			//personas
 			int trabajadores=500;
 			int inquilinos=1000;
-			int propietarios=1000;
+			int propietarios=1500;
 			//viviendas
-			int viviendas=1000;
+			int viviendas=2000;
 
 
 			//Variables dependientes
@@ -290,7 +290,7 @@ public class ScripDeCreacion {
 			dnii=generarDni();
 			dni=Arrays.copyOf(dni, dni.length+1);
 			dni[i]=dnii;
-			salida+=inicio+"persona"+inicio2+"dni,nombre,apellidos,telefono"+medio+dnii+",'"+direccion2[random.nextInt(30)]+"','"+apellidos[random.nextInt(60)]+"','"+random.nextInt(100000000,999999999)+"'"+fin+"\n";
+			salida+=inicio+"persona"+inicio2+"dni,nombre,apellidos,telefono"+medio+dnii+",'"+direccion2[random.nextInt(400)]+"','"+apellidos[random.nextInt(60)]+"','"+random.nextInt(100000000,999999999)+"'"+fin+"\n";
 		}
 		guardarDatos(salida);
 		salida="";
