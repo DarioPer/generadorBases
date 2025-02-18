@@ -9,6 +9,8 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Random;
 
+
+//dni pago esta mal referenciado conta
 public class ScripDeCreacion {
 
 	//variables estaticas para uso general
@@ -40,13 +42,13 @@ public class ScripDeCreacion {
 			//Cantidates
 
 			//inmobiliarias
-			int numInmo=2;
+			int numInmo=500;
 			//personas
-			int trabajadores=2;
-			int inquilinos=2;
-			int propietarios=2;
+			int trabajadores=500;
+			int inquilinos=1000;
+			int propietarios=1000;
 			//viviendas
-			int viviendas=2;
+			int viviendas=1500;
 
 
 			//Variables dependientes
@@ -416,7 +418,7 @@ public class ScripDeCreacion {
 		Random random=new Random();
 		String salida="";
 		for (int i = 0; i < numeroLineas; i++) {
-			salida+=inicio+"propietarioVivienda"+inicio2+"dni,domicilio,localidad,provincia,porcentaje"+medio+dni3[dni3.length-(i+1)]+",'"+domicilios[domicilios.length-(i+1)]+"','"+localidad[localidadesVivienda[localidadesVivienda.length-(i+1)]]+"','"+provinciaLocalidad.get(localidad[localidadesVivienda[localidadesVivienda.length-(i+1)]])+"',"+random.nextInt(1,101)+fin+"\n";
+			salida+=inicio+"propietarioVivienda"+inicio2+"dni,domicilio,localidad,provincia,porcentaje"+medio+dni3[dni3.length-(i+1)]+","+domicilios[domicilios.length-(i+1)]+",'"+localidad[localidadesVivienda[localidadesVivienda.length-(i+1)]]+"','"+provinciaLocalidad.get(localidad[localidadesVivienda[localidadesVivienda.length-(i+1)]])+"',"+random.nextInt(1,101)+fin+"\n";
 			
 		}
 		guardarDatos(salida);
@@ -443,7 +445,7 @@ public class ScripDeCreacion {
 
 				DtContrato=Arrays.copyOf(DtContrato, DtContrato.length+1);
 				DtContrato[DtContrato.length-1]=new String[2];
-				DtContrato[DtContrato.length-1][0]=dni[dni.length-1]+","+domicilios[domicilios.length-1]+",'"+localidad[localidadesVivienda[localidadesVivienda.length-1]]+"','"+provinciaLocalidad.get(localidad[localidadesVivienda[localidadesVivienda.length-1]])+"','"+fechaInicio.toString()+"'";	
+				DtContrato[DtContrato.length-1][0]=dni[dni.length-1]+","+domicilios[domicilios.length-1]+",'"+localidad[localidadesVivienda[localidadesVivienda.length-1]]+"','"+provinciaLocalidad.get(localidad[localidadesVivienda[localidadesVivienda.length-1]])+"'";	
 				DtContrato[DtContrato.length-1][1]=fechaInicio.toString();
 				
 				dni=Arrays.copyOf(dni, dni.length-1);
