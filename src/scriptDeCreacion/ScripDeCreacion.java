@@ -49,13 +49,13 @@ public class ScripDeCreacion {
 			//Cantidates
 
 			//inmobiliarias
-			int numInmo=2;
+			int numInmo=500;
 			//personas
-			int trabajadores=5;
-			int inquilinos=5;
-			int propietarios=5;
+			int trabajadores=500;
+			int inquilinos=1000;
+			int propietarios=500;
 			//viviendas
-			int viviendas=20;
+			int viviendas=2000;
 
 
 			//Variables dependientes
@@ -68,10 +68,16 @@ public class ScripDeCreacion {
 			persona(cantidadPersonas);//1
 			oficina(numInmo);//2
 			trabajador(trabajadores);//2
-			System.out.println("pre inc "+dniInquilino.length+" trabajadores Inc"+dniTrabajadorInquilino.length);
+
+			System.out.println("dni Disponibles pos trabajador "+(dni.length));
+			System.out.println("pre inc "+(dni.length-propietarios)+" trabajadores Inc"+dniTrabajadorInquilino.length);
 			inquilinos=Inquilino(inquilinos);//2
+
+			System.out.println("dni Disponibles pos inquilino "+(dni.length));
 			System.out.println("pos inc "+inquilinos);
 			int numPropietarios=propietarios(propietarios);//2
+
+			System.out.println("dni Disponibles pos propietario "+(dni.length));
 
 			if (numPropietarios>viviendas) {
 				System.out.println("No hay suficientes propietarios para las viviendas, propietarios "+ numPropietarios+" viviendas "+viviendas);
@@ -296,9 +302,10 @@ public class ScripDeCreacion {
 
 		String salida="";
 		String dnii="";
+		int contador=0;
 		
 		for (int i = 0; i < numeroLinesa; i++) {
-
+			contador++;
 			dnii=generarDni();
 			dni=Arrays.copyOf(dni, dni.length+1);
 			dni[i]=dnii;
@@ -306,43 +313,43 @@ public class ScripDeCreacion {
 		}
 		guardarDatos(salida);
 		salida="";
+		System.out.println("Personas creadas "+contador);
 
 	}
 
 	//clase que crea la tabla trabajador
-	public static void trabajador(int numeroLineas){
-		Random random=new Random();
+	public static void trabajador(int numeroLineas) {
+		Random random = new Random();
 		LocalDate fechaBaja;
 		LocalDate fechaAlta;
-		int contador=0;
-
-		String[] tipoContrato = {"PorHoras","Fijo","Temporal","FijoDiscontinuo","PorCondicionesDeLaProduccion"};
-		String salida="";
-		String sacardni="";
+	
+		String[] tipoContrato = {"PorHoras", "Fijo", "Temporal", "FijoDiscontinuo", "PorCondicionesDeLaProduccion"};
+		String salida = "";
+		String sacardni = "";
+	
 		for (int i = numeroLineas; i > 0; i--) {
-			fechaAlta=LocalDate.of(random.nextInt(2000,2021), random.nextInt(1,13), random.nextInt(1,29));
-			fechaBaja=LocalDate.of(random.nextInt(2000,2035), random.nextInt(1,13), random.nextInt(1,29));
+			fechaAlta = LocalDate.of(random.nextInt(2000, 2021), random.nextInt(1, 13), random.nextInt(1, 29));
+			fechaBaja = LocalDate.of(random.nextInt(2000, 2035), random.nextInt(1, 13), random.nextInt(1, 29));
+	
 			if (fechaBaja.isAfter(fechaAlta)) {
-				sacardni=dni[dni.length-1];
-				salida+=inicio+"trabajador"+inicio2+"dni,fechaAlta,tipoContrato,fechaBaja,salarioBrutoAnual"+medio+sacardni+",'"+fechaAlta.toString()+"','"+tipoContrato[random.nextInt(5)]+"','"+fechaBaja.toString()+"',"+random.nextInt(24500,255000)+fin+"\n";
-				
-				if (i%5==0) {
-					contador++;
-					dniTrabajadorInquilino=Arrays.copyOf(dniTrabajadorInquilino, dniTrabajadorInquilino.length+1);
-					dniTrabajadorInquilino[dniTrabajadorInquilino.length-1]=sacardni;
-					System.out.println(contador);
+				// Sacar y eliminar el dni
+				sacardni = dni[dni.length - 1];
+				dni = Arrays.copyOf(dni, dni.length - 1);
+	
+				// Crear la línea
+				salida += inicio + "trabajador" + inicio2 + "dni,fechaAlta,tipoContrato,fechaBaja,salarioBrutoAnual" + medio + sacardni + ",'" + fechaAlta.toString() + "','" + tipoContrato[random.nextInt(5)] + "','" + fechaBaja.toString() + "'," + random.nextInt(24500, 255000) + fin + "\n";
+	
+				if (i % 5 == 0) {
+					dniTrabajadorInquilino = Arrays.copyOf(dniTrabajadorInquilino, dniTrabajadorInquilino.length + 1);
+					dniTrabajadorInquilino[dniTrabajadorInquilino.length - 1] = sacardni;
 				}
-				
-				dni=Arrays.copyOf(dni, dni.length-1);
-				
-
-			}else{
+			} else {
 				i++;
 			}
-
 		}
+	
 		guardarDatos(salida);
-		salida="";
+		salida = "";
 	}
 
 	//clase que crea la tabla inquilino
@@ -352,13 +359,15 @@ public class ScripDeCreacion {
     String[] buscaOfertas = {"True", "False"};
 	int contador=0;
     String salida = "";
-		for (int i = 0; i < dniTrabajadorInquilino.length; i++) {
-			dniInquilino=Arrays.copyOf(dniInquilino, dniInquilino.length+1);
-			dniInquilino[dniInquilino.length-1]=dniTrabajadorInquilino[dniTrabajadorInquilino.length-1];
-			dniTrabajadorInquilino=Arrays.copyOf(dniTrabajadorInquilino, dniTrabajadorInquilino.length-1);
+	int trabInc=dniTrabajadorInquilino.length;
+		// fusionar los dnis de los trabajadores seleccionados con los inquilinos
+		for (String dniTrab : dniTrabajadorInquilino) {
+			dni=Arrays.copyOf(dni, dni.length+1);
+			dni[dni.length-1]=dniTrab;
 		}
-
-    for (int i = (dniInquilino.length); i > 0; i--) {
+		System.out.println("dni Disponibles agregados trabajadores "+(dni.length));
+	//crear los inquilinos
+    for (int i = (numeroLineas+trabInc); i > 0; i--) {
         if (dni.length > 0) {
 
             dniInquilino = Arrays.copyOf(dniInquilino, dniInquilino.length + 1);
@@ -397,6 +406,7 @@ public class ScripDeCreacion {
 				dni = Arrays.copyOf(dni, dni.length - 1);
 			} else {
 				System.out.println("Propietarios: No hay suficientes DNI disponibles."+contador+" DNIS "+dni.length);
+				break;
 			}
 		}
 		guardarDatos(salida);
