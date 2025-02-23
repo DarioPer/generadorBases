@@ -28,7 +28,7 @@ public class ScripDeCreacion {
 	private static String[] domicilios={};
 	private static String[] oficinas={};
 	private static int[] localidadesVivienda={};
-	private static String[] idInmoviliaria={};
+	private static String[] idInmobiliaria={};
 	private static int[] cantidadOficinas={};
 	private static int[] numeroViviendas={};
 	private static String[][] DtContrato={{}};
@@ -49,20 +49,18 @@ public class ScripDeCreacion {
 			//Cantidates
 
 			//inmobiliarias
-			int numInmo=500;
+			int numInmo=2;
 			//personas
-			int trabajadores=500;
-			int inquilinos=1000;
-			int propietarios=1500;
+			int trabajadores=5;
+			int inquilinos=5;
+			int propietarios=5;
 			//viviendas
-			int viviendas=2000;
+			int viviendas=20;
 
 
 			//Variables dependientes
 			int cantidadPersonas=trabajadores+inquilinos+propietarios;
-
 			rellenarDiccionarios();
-
 
 			//llamada a los metodos
 			Inmobiliaria(numInmo);//1
@@ -70,12 +68,19 @@ public class ScripDeCreacion {
 			persona(cantidadPersonas);//1
 			oficina(numInmo);//2
 			trabajador(trabajadores);//2
-			Inquilino(inquilinos);//2
-			propietarios(propietarios);//2
+			System.out.println("pre inc "+dniInquilino.length+" trabajadores Inc"+dniTrabajadorInquilino.length);
+			inquilinos=Inquilino(inquilinos);//2
+			System.out.println("pos inc "+inquilinos);
+			int numPropietarios=propietarios(propietarios);//2
+
+			if (numPropietarios>viviendas) {
+				System.out.println("No hay suficientes propietarios para las viviendas, propietarios "+ numPropietarios+" viviendas "+viviendas);
+			}
+
 			vivienda(viviendas);//2
 			infoZona();//2
 			preferenciasInquilino(inquilinos);//3
-			propietarioVivienda(propietarios);//3
+			propietarioVivienda(numPropietarios);//3
 			contrato(inquilinos);//4
 
 
@@ -248,10 +253,10 @@ public class ScripDeCreacion {
 			int n0ficinas=0;
 			for (int i = 0; i < numeroLineas; i++) {
 				n0ficinas=random.nextInt(1,10);
-				salida+=inicio+"inmoviliaria"+inicio2+"idInmobiliaria,nombreComercial,categoria,nOficinas,paisSede"+medio+(i+1)+",'"+Inmobiliarias[random.nextInt(0,400)]+"',"+categorias[random.nextInt(4)]+","+n0ficinas+","+paisSede+fin+"\n";
+				salida+=inicio+"inmobiliaria"+inicio2+"idInmobiliaria,nombreComercial,categoria,nOficinas,paisSede"+medio+(i+1)+",'"+Inmobiliarias[random.nextInt(0,400)]+"',"+categorias[random.nextInt(4)]+","+n0ficinas+","+paisSede+fin+"\n";
 				
-				idInmoviliaria=Arrays.copyOf(idInmoviliaria, idInmoviliaria.length+1);
-				idInmoviliaria[i]=i+"";
+				idInmobiliaria=Arrays.copyOf(idInmobiliaria, idInmobiliaria.length+1);
+				idInmobiliaria[i]=i+"";
 				cantidadOficinas=Arrays.copyOf(cantidadOficinas, cantidadOficinas.length+1);
 				cantidadOficinas[i]=n0ficinas;
 		}
@@ -274,7 +279,7 @@ public class ScripDeCreacion {
 
 				loc=localidad[random.nextInt(19)];
 
-				salida+=inicio+"oficina"+inicio2+"idInmoviliaria,idOficina,direccion,cp,localidad,provincia"+medio+(i+1)+","+(j+1)+",'"+direccion1[random.nextInt(5)]+" "+direccion2[random.nextInt(30)]+"',"+localidadCodigoPostal.get(loc)+",'"+loc+"','"+provinciaLocalidad.get(loc)+"'"+fin+"\n";
+				salida+=inicio+"oficina"+inicio2+"idInmobiliaria,idOficina,direccion,cp,localidad,provincia"+medio+(i+1)+","+(j+1)+",'"+direccion1[random.nextInt(5)]+" "+direccion2[random.nextInt(30)]+"',"+localidadCodigoPostal.get(loc)+",'"+loc+"','"+provinciaLocalidad.get(loc)+"'"+fin+"\n";
 				oficinas=Arrays.copyOf(oficinas, oficinas.length+1);
 				oficinas[oficinas.length-1]=(i+1)+","+(j+1);
 			}
@@ -309,18 +314,23 @@ public class ScripDeCreacion {
 		Random random=new Random();
 		LocalDate fechaBaja;
 		LocalDate fechaAlta;
+		int contador=0;
 
 		String[] tipoContrato = {"PorHoras","Fijo","Temporal","FijoDiscontinuo","PorCondicionesDeLaProduccion"};
 		String salida="";
+		String sacardni="";
 		for (int i = numeroLineas; i > 0; i--) {
 			fechaAlta=LocalDate.of(random.nextInt(2000,2021), random.nextInt(1,13), random.nextInt(1,29));
 			fechaBaja=LocalDate.of(random.nextInt(2000,2035), random.nextInt(1,13), random.nextInt(1,29));
 			if (fechaBaja.isAfter(fechaAlta)) {
-				salida+=inicio+"trabajador"+inicio2+"dni,fechaAlta,tipoContrato,fechaBaja,salarioBrutoAnual"+medio+dni[dni.length-1]+",'"+fechaAlta.toString()+"','"+tipoContrato[random.nextInt(5)]+"','"+fechaBaja.toString()+"',"+random.nextInt(24500,255000)+fin+"\n";
+				sacardni=dni[dni.length-1];
+				salida+=inicio+"trabajador"+inicio2+"dni,fechaAlta,tipoContrato,fechaBaja,salarioBrutoAnual"+medio+sacardni+",'"+fechaAlta.toString()+"','"+tipoContrato[random.nextInt(5)]+"','"+fechaBaja.toString()+"',"+random.nextInt(24500,255000)+fin+"\n";
 				
-				if (i%(numeroLineas/10)==0) {
+				if (i%5==0) {
+					contador++;
 					dniTrabajadorInquilino=Arrays.copyOf(dniTrabajadorInquilino, dniTrabajadorInquilino.length+1);
-					dniTrabajadorInquilino[dniTrabajadorInquilino.length-1]=dni[dni.length-1];
+					dniTrabajadorInquilino[dniTrabajadorInquilino.length-1]=sacardni;
+					System.out.println(contador);
 				}
 				
 				dni=Arrays.copyOf(dni, dni.length-1);
@@ -336,51 +346,62 @@ public class ScripDeCreacion {
 	}
 
 	//clase que crea la tabla inquilino
-	public static void Inquilino(int numeroLineas) {
+	public static int Inquilino(int numeroLineas) {
     Random random = new Random();
     String[] tipoInquilino = {"'Particular'", "'Empresa'"};
     String[] buscaOfertas = {"True", "False"};
-
+	int contador=0;
     String salida = "";
-    for (int i = (numeroLineas)+dniTrabajadorInquilino.length; i > 0; i--) {
+		for (int i = 0; i < dniTrabajadorInquilino.length; i++) {
+			dniInquilino=Arrays.copyOf(dniInquilino, dniInquilino.length+1);
+			dniInquilino[dniInquilino.length-1]=dniTrabajadorInquilino[dniTrabajadorInquilino.length-1];
+			dniTrabajadorInquilino=Arrays.copyOf(dniTrabajadorInquilino, dniTrabajadorInquilino.length-1);
+		}
+
+    for (int i = (dniInquilino.length); i > 0; i--) {
         if (dni.length > 0) {
+
             dniInquilino = Arrays.copyOf(dniInquilino, dniInquilino.length + 1);
             dniInquilino[dniInquilino.length - 1] = dni[dni.length - 1];
             salida += inicio + "inquilino" + inicio2 + "dni,tipoInquilino,buscaOfertas" + medio + dni[dni.length - 1] + "," + tipoInquilino[random.nextInt(2)] + "," + buscaOfertas[random.nextInt(2)] + fin + "\n";
             dni = Arrays.copyOf(dni, dni.length - 1);
-        }else{
-			dniInquilino = Arrays.copyOf(dniInquilino, dniInquilino.length + 1);
-            dniInquilino[dniInquilino.length - 1] = dniTrabajadorInquilino[dniTrabajadorInquilino.length - 1];
-            salida += inicio + "inquilino" + inicio2 + "dni,tipoInquilino,buscaOfertas" + medio + dni[dni.length - 1] + "," + tipoInquilino[random.nextInt(2)] + "," + buscaOfertas[random.nextInt(2)] + fin + "\n";
-            
-			dniTrabajadorInquilino=Arrays.copyOf(dniTrabajadorInquilino, dniTrabajadorInquilino.length-1);
-		}
+			contador++;
+        }
     }
-	System.out.println("dniInc "+dniInquilino.length);
+	System.out.println("Inc "+contador);
     guardarDatos(salida);
     salida = "";
+	return contador;
 	}
 
 	//clase que crea la tabla propietario
-	public static void propietarios(int numeroLineas){
-		Random random=new Random();
-		String[] tipoCliente={"'Particular'","'Empresa'"};
-		int nViviendas=0;
-		String salida="";
+	public static int propietarios(int numeroLineas) {
+		Random random = new Random();
+		String[] tipoCliente = {"'Particular'", "'Empresa'"};
+		int nViviendas = 0;
+		String salida = "";
+		int contador=0;
+		System.out.println(dni.length+"dnis");
 		for (int i = numeroLineas; i > 0; i--) {
-
-			numeroViviendas=Arrays.copyOf(numeroViviendas, numeroViviendas.length+1);
-			nViviendas=random.nextInt(1,10);
-			numeroViviendas[numeroViviendas.length-1]=nViviendas;
-
-			dni3 = Arrays.copyOf(dni3, dni3.length + 1);
-			dni3[dni3.length - 1] = dni[dni.length - 1];
-
-			salida+=inicio+"propietario"+inicio2+"dni,tipoCliente,nViviendas"+medio+dni[dni.length-1]+","+tipoCliente[random.nextInt(2)]+","+nViviendas+fin+"\n";
-			dni=Arrays.copyOf(dni, dni.length-1);
+			
+			if (dni.length > 0) {
+				contador++;
+				numeroViviendas = Arrays.copyOf(numeroViviendas, numeroViviendas.length + 1);
+				nViviendas = random.nextInt(1, 10);
+				numeroViviendas[numeroViviendas.length - 1] = nViviendas;
+	
+				dni3 = Arrays.copyOf(dni3, dni3.length + 1);
+				dni3[dni3.length - 1] = dni[dni.length - 1];
+	
+				salida += inicio + "propietario" + inicio2 + "dni,tipoCliente,nViviendas" + medio + dni[dni.length - 1] + "," + tipoCliente[random.nextInt(2)] + "," + nViviendas + fin + "\n";
+				dni = Arrays.copyOf(dni, dni.length - 1);
+			} else {
+				System.out.println("Propietarios: No hay suficientes DNI disponibles."+contador+" DNIS "+dni.length);
+			}
 		}
 		guardarDatos(salida);
-		salida="";
+		salida = "";
+		return contador;
 	}
 
 	//clase que crea la tabla preferenciasInquilino
@@ -461,7 +482,7 @@ public class ScripDeCreacion {
 
 				oficina=oficinas[random.nextInt(oficinas.length)];
 
-				salida+=inicio+"contrato"+inicio2+"dniInquilino,domicilio,localidad,provincia,fechaFirma,duracion,fechaFin,estadoInicialCasa,estadoFinalCasa,fianza,fianzaDevuelta,oficina,inmoviliaria"+medio+dni[dni.length-1]+","+domicilios[domicilios.length-1]+",'"+localidad[localidadesVivienda[localidadesVivienda.length-1]]+"','"+provinciaLocalidad.get(localidad[localidadesVivienda[localidadesVivienda.length-1]])+"','"+fechaInicio.toString()+"',"+random.nextInt(1,37)+",'"+fechaFin.toString()+"','"+(random.nextInt(0,2)==1?"Bueno":"Malo")+"','"+(random.nextInt(0,2)==1?"Bueno":"Malo")+"',"+random.nextInt(100,1000)+","+(random.nextInt(0,2)==1?1:0)+","+oficina+fin+"\n";
+				salida+=inicio+"contrato"+inicio2+"dniInquilino,domicilio,localidad,provincia,fechaFirma,duracion,fechaFin,estadoInicialCasa,estadoFinalCasa,fianza,fianzaDevuelta,oficina,inmobiliaria"+medio+dni[dni.length-1]+","+domicilios[domicilios.length-1]+",'"+localidad[localidadesVivienda[localidadesVivienda.length-1]]+"','"+provinciaLocalidad.get(localidad[localidadesVivienda[localidadesVivienda.length-1]])+"','"+fechaInicio.toString()+"',"+random.nextInt(1,37)+",'"+fechaFin.toString()+"','"+(random.nextInt(0,2)==1?"Bueno":"Malo")+"','"+(random.nextInt(0,2)==1?"Bueno":"Malo")+"',"+random.nextInt(100,1000)+","+(random.nextInt(0,2)==1?1:0)+","+oficina+fin+"\n";
 
 				DtContrato=Arrays.copyOf(DtContrato, DtContrato.length+1);
 				DtContrato[DtContrato.length-1]=new String[2];
