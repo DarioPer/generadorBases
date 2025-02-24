@@ -55,7 +55,7 @@ public class ScripDeCreacion {
 			int inquilinos=1000;
 			int propietarios=500;
 			//viviendas
-			int viviendas=2000;
+			int viviendas=4000;
 
 
 			//Variables dependientes
@@ -397,9 +397,9 @@ public class ScripDeCreacion {
 				contador++;
 				// generar el número de viviendas que tiene cada propietario
 				numeroViviendas = Arrays.copyOf(numeroViviendas, numeroViviendas.length + 1);
-				nViviendas = random.nextInt(1, 10);
+				nViviendas = random.nextInt(1, 6);
 				numeroViviendas[numeroViviendas.length - 1] = nViviendas;
-	
+				// copiar el dni del propietario
 				dni3 = Arrays.copyOf(dni3, dni3.length + 1);
 				dni3[dni3.length - 1] = dni[dni.length - 1];
 	
@@ -470,11 +470,19 @@ public class ScripDeCreacion {
 		int contador=0;
 		Random random=new Random();
 		String salida="";
+		String domicilio, localidadd, provincia;
 		for (int i = 0; i < numeroLineas; i++) {
 			for (int j = 0; j < numeroViviendas[i]; j++) {
-				contador++;
+
+				//domicilio = domicilios[domicilios.length-(j+1)];
+				//localidadd = localidad[localidadesVivienda[localidadesVivienda.length-(j+1)]];
+
+				domicilio = domicilios[contador];
+				localidadd = localidad[localidadesVivienda[contador]];
+				provincia = provinciaLocalidad.get(localidadd);
 				
-			salida+=inicio+"propietarioVivienda"+inicio2+"dni,domicilio,localidad,provincia,porcentaje"+medio+dni3[dni3.length-(i+1)]+","+domicilios[domicilios.length-(j+1)]+",'"+localidad[localidadesVivienda[localidadesVivienda.length-(j+1)]]+"','"+provinciaLocalidad.get(localidad[localidadesVivienda[localidadesVivienda.length-(j+1)]])+"',"+random.nextInt(1,101)+fin+"\n";
+			salida+=inicio+"propietarioVivienda"+inicio2+"dni,domicilio,localidad,provincia,porcentaje"+medio+dni3[i]+","+domicilio+",'"+localidadd+"','"+provincia+"',"+random.nextInt(1,101)+fin+"\n";
+			contador++;
 			}
 
 		}
