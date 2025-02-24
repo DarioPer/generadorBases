@@ -12,10 +12,10 @@ import java.util.Random;
 
 /*
  * hay tabajadores que son inquilinos y propietarios
- * propietarios tienen varias viviendas
+ * propietarios tienen varias viviendas**
  * clientes pueden tener pagos pendientes/atrasados
- * inquilinos tienen varios contratos realizados
- * inquilinos que han sido trabajadores
+ * inquilinos tienen varios contratos realizados**
+ * inquilinos que han sido trabajadores**
  */
 public class ScripDeCreacion {
 
@@ -397,7 +397,7 @@ public class ScripDeCreacion {
 				contador++;
 				// generar el número de viviendas que tiene cada propietario
 				numeroViviendas = Arrays.copyOf(numeroViviendas, numeroViviendas.length + 1);
-				nViviendas = random.nextInt(1, 6);
+				nViviendas = random.nextInt(1, 13);
 				numeroViviendas[numeroViviendas.length - 1] = nViviendas;
 				// copiar el dni del propietario
 				dni3 = Arrays.copyOf(dni3, dni3.length + 1);
@@ -500,31 +500,42 @@ public class ScripDeCreacion {
 		LocalDate fechaInicio;
 		LocalDate fechaFin;
 		String oficina="";
+		int numContratos;
+		String dnI="";
+		int contador=0;
 		for (int i = numeroLineas; i > 0; i--) {
-			fechaInicio=LocalDate.of(random.nextInt(2000,2021), random.nextInt(1,13), random.nextInt(1,29));
-			fechaFin=LocalDate.of(random.nextInt(2000,2021), random.nextInt(1,13), random.nextInt(1,29));
-			if (fechaFin.isAfter(fechaInicio)) {
+			numContratos=random.nextInt(1,4);
+			dnI=dni[dni.length-1];
+			dni=Arrays.copyOf(dni, dni.length-1);
+			for (int j = 0; j < numContratos; j++) {
+				fechaInicio=LocalDate.of(random.nextInt(2000,2021), random.nextInt(1,13), random.nextInt(1,29));
+				fechaFin=LocalDate.of(random.nextInt(2000,2021), random.nextInt(1,13), random.nextInt(1,29));
+				if (fechaFin.isAfter(fechaInicio)) {
+					contador++;
 
-				oficina=oficinas[random.nextInt(oficinas.length)];
+					oficina=oficinas[random.nextInt(oficinas.length)];
 
-				salida+=inicio+"contrato"+inicio2+"dniInquilino,domicilio,localidad,provincia,fechaFirma,duracion,fechaFin,estadoInicialCasa,estadoFinalCasa,fianza,fianzaDevuelta,oficina,inmobiliaria"+medio+dni[dni.length-1]+","+domicilios[domicilios.length-1]+",'"+localidad[localidadesVivienda[localidadesVivienda.length-1]]+"','"+provinciaLocalidad.get(localidad[localidadesVivienda[localidadesVivienda.length-1]])+"','"+fechaInicio.toString()+"',"+random.nextInt(1,37)+",'"+fechaFin.toString()+"','"+(random.nextInt(0,2)==1?"Bueno":"Malo")+"','"+(random.nextInt(0,2)==1?"Bueno":"Malo")+"',"+random.nextInt(100,1000)+","+(random.nextInt(0,2)==1?1:0)+","+oficina+fin+"\n";
+					salida+=inicio+"contrato"+inicio2+"dniInquilino,domicilio,localidad,provincia,fechaFirma,duracion,fechaFin,estadoInicialCasa,estadoFinalCasa,fianza,fianzaDevuelta,oficina,inmobiliaria"+medio+dnI+","+domicilios[domicilios.length-1]+",'"+localidad[localidadesVivienda[localidadesVivienda.length-1]]+"','"+provinciaLocalidad.get(localidad[localidadesVivienda[localidadesVivienda.length-1]])+"','"+fechaInicio.toString()+"',"+random.nextInt(1,37)+",'"+fechaFin.toString()+"','"+(random.nextInt(0,2)==1?"Bueno":"Malo")+"','"+(random.nextInt(0,2)==1?"Bueno":"Malo")+"',"+random.nextInt(100,1000)+","+(random.nextInt(0,2)==1?1:0)+","+oficina+fin+"\n";
 
-				DtContrato=Arrays.copyOf(DtContrato, DtContrato.length+1);
-				DtContrato[DtContrato.length-1]=new String[2];
-				DtContrato[DtContrato.length-1][0]=dni[dni.length-1]+","+domicilios[domicilios.length-1]+",'"+localidad[localidadesVivienda[localidadesVivienda.length-1]]+"','"+provinciaLocalidad.get(localidad[localidadesVivienda[localidadesVivienda.length-1]])+"'";	
-				DtContrato[DtContrato.length-1][1]=fechaInicio.toString();
+					DtContrato=Arrays.copyOf(DtContrato, DtContrato.length+1);
+					DtContrato[DtContrato.length-1]=new String[2];
+					DtContrato[DtContrato.length-1][0]=dnI+","+domicilios[domicilios.length-1]+",'"+localidad[localidadesVivienda[localidadesVivienda.length-1]]+"','"+provinciaLocalidad.get(localidad[localidadesVivienda[localidadesVivienda.length-1]])+"'";	
+					DtContrato[DtContrato.length-1][1]=fechaInicio.toString();
+					
+					
+					domicilios=Arrays.copyOf(domicilios, domicilios.length-1);
+					localidadesVivienda=Arrays.copyOf(localidadesVivienda, localidadesVivienda.length-1);
+				}else{
+					j++;
+				}
 				
-				dni=Arrays.copyOf(dni, dni.length-1);
-				domicilios=Arrays.copyOf(domicilios, domicilios.length-1);
-				localidadesVivienda=Arrays.copyOf(localidadesVivienda, localidadesVivienda.length-1);
-			}else{
-				i++;
 			}
+			
 		}
 		//fechaFirma,dni,domicilio,localidad.
 		guardarDatos(salida);
 		salida="";
-		pago(numeroLineas);
+		pago(contador);
 	}
 
 	//clase que crea la tabla pago
@@ -535,13 +546,15 @@ public class ScripDeCreacion {
 		LocalDate fechaPrevistaPago;
 		LocalDate fechaRealPago;
 		int periodoPago=0;
+		String lugar="";
 		for (int i = numeroLineas; i > 0; i--) {
 
 			periodoPago=random.nextInt(1,13);
 			fechaPrevistaPago=LocalDate.parse(DtContrato[DtContrato.length-1][1]);
+			lugar=DtContrato[DtContrato.length-1][0];
 			fechaRealPago=fechaPrevistaPago.plusDays(random.nextInt(periodoPago*28));
 
-			salida+=inicio+"pago"+inicio2+"dni,domicilio,localidad,provincia,cantidad,fechaPrevistaPago,fechaRealPago,periodoPago"+medio+DtContrato[DtContrato.length-1][0]+","+random.nextInt(100,2000)+",'"+fechaPrevistaPago+"','"+fechaRealPago+"',"+periodoPago+fin+"\n";
+			salida+=inicio+"pago"+inicio2+"dni,domicilio,localidad,provincia,cantidad,fechaPrevistaPago,fechaRealPago,periodoPago"+medio+lugar+","+random.nextInt(100,2000)+",'"+fechaPrevistaPago+"','"+fechaRealPago+"',"+periodoPago+fin+"\n";
 			DtContrato=Arrays.copyOf(DtContrato, DtContrato.length-1);
 		}
 		guardarDatos(salida);
