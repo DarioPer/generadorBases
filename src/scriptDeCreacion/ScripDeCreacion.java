@@ -62,9 +62,11 @@ public class ScripDeCreacion {
 			// los tabajadores divisibles por 5 tambien son inquilinos
 			int trabajadores=500;
 			int inquilinos=1500;
+				//el maximo de preferencias suma 1 para evitar errores pudiendo colocar 0 para que el maximo de preferencias sea 1
 				maxLocalidadesPreferencias=2;
 			//propietarios el maximo de propiedades que pueden tener es el que corresponde a la variable maximoPropiedades
 			int propietarios=1200;
+				//hay que contarle 1 mas siendo el minimo 2 para que sola mente tenga 1 vivienda
 				maximoPropiedades=6;
 			//viviendas es recomendable que sea mayor que el numero de propietarios
 			int viviendas=4000;
@@ -436,10 +438,12 @@ public class ScripDeCreacion {
 		String salida="";
 		int loc=0;
 		String dNI="";
+		int reps=0;
 		for (int i = numeroLineas; i > 0; i--) {
 			dNI=dniInquilino[dniInquilino.length-1];
+			reps=random.nextInt(1,(maxLocalidadesPreferencias+1));
 			dniInquilino = Arrays.copyOf(dniInquilino, dniInquilino.length - 1);
-			for (int j = 0; j < random.nextInt(1,maxLocalidadesPreferencias); j++) {
+			for (int j = 0; j < reps; j++) {
 				loc=random.nextInt(localidad.length);
 			salida+=inicio+"preferenciasInquilino"+inicio2+"dni,localidad,provincia,metrosMinimo,metrosMaximo,nBanos,garaje,precioMaximo"+medio+dNI+",'"+localidad[loc]+"','"+provinciaLocalidad.get(localidad[loc])+"',"+random.nextInt(20,80)+","+random.nextInt(90,200)+","+random.nextInt(1,4)+","+(random.nextInt(0,2)==1?"True":"False")+","+random.nextInt(700,2000)+fin+"\n";
 			
