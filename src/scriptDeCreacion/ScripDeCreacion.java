@@ -34,9 +34,10 @@ public class ScripDeCreacion {
 	private static int[] numeroViviendas={};
 	private static String[][] DtContrato={{}};
 	private static int maximoPropiedades=0;
+	private static int maxLocalidadesPreferencias=0;
 
 	//Array de localidades al cambiarlo se deben cambiar los 3 diccionarios correspondientes en la funcion rellenarDiccionarios
-	private static String[] localidad={"Valladolid","Barcelona","Valencia","Vezdemarban","Alcalá de Henares", "Aínsa", "Albarracín", "Cangas de Onís", "Comillas","Cuenca", "Frigiliana", "Laguardia", "Olite", "Potes","Ronda", "Santillana del Mar", "Trujillo", "Úbeda", "Zafra", "Bilbao", "Sevilla", "Granada", "Salamanca", "Toledo", "Burgos", "León", "Zaragoza", "Málaga", "Murcia", "Pamplona", "Logroño", "Santander", "Cádiz", "Huelva", "Almería", "San Sebastián", "Gijón", "Oviedo"};
+	private static String[] localidad={"Valladolid","Barcelona","Valencia","Vezdemarban","Alcalá de Henares", "Aínsa", "Albarracín", "Cangas de Onís", "Comillas","Cuenca", "Frigiliana", "Laguardia", "Olite", "Potes","Ronda", "Santillana del Mar", "Trujillo", "Úbeda", "Zafra", "Bilbao", "Sevilla", "Granada", "Salamanca", "Toledo", "Burgos", "León", "Zaragoza", "Málaga", "Murcia", "Pamplona", "Logroño", "Santander", "Cádiz", "Huelva", "Almería", "San Sebastián", "Gijón", "Oviedo", "Zamora"};
 	//private static String[] provincias = {"Álava", "Albacete", "Alicante", "Almería", "Asturias","Ávila", "Badajoz", "Baleares", "Barcelona", "Burgos","Cáceres", "Cádiz", "Cantabria", "Castellón", "Ciudad Real","Córdoba", "Cuenca", "Gerona", "Granada", "Guadalajara","Guipúzcoa", "Huelva", "Huesca", "Jaén", "La Coruña","La Rioja", "Las Palmas", "León", "Lérida", "Lugo","Madrid", "Málaga", "Murcia", "Navarra", "Orense","Palencia", "Pontevedra", "Salamanca", "Santa Cruz de Tenerife", "Segovia","Sevilla", "Soria", "Tarragona", "Teruel", "Toledo","Valencia", "Valladolid", "Vizcaya", "Zamora", "Zaragoza"};
 	//este arrary no es necesario cambiarlo
 	private static String[] direccion1={"Calle","Avenida","Paseo","Plaza","Bulevard",};
@@ -60,14 +61,14 @@ public class ScripDeCreacion {
 			//personas
 			// los tabajadores divisibles por 5 tambien son inquilinos
 			int trabajadores=500;
-			int inquilinos=1000;
+			int inquilinos=1500;
+				maxLocalidadesPreferencias=2;
 			//propietarios el maximo de propiedades que pueden tener es el que corresponde a la variable maximoPropiedades
-			int propietarios=500;
-				maximoPropiedades=13;
+			int propietarios=1200;
+				maximoPropiedades=6;
 			//viviendas es recomendable que sea mayor que el numero de propietarios
 			int viviendas=4000;
-
-
+			
 			//Variables dependientes no modificarlas
 			int cantidadPersonas=trabajadores+inquilinos+propietarios;
 			rellenarDiccionarios();
@@ -147,6 +148,7 @@ public class ScripDeCreacion {
 		localidadHabitantes.put("Vezdemarban", 200);
 		localidadHabitantes.put("Zafra", 16700);
 		localidadHabitantes.put("Zaragoza", 674997);
+		localidadHabitantes.put("Zamora", 60000);
 
 		//localidad-provincia
 		provinciaLocalidad.put("Aínsa", "Huesca");
@@ -187,6 +189,7 @@ public class ScripDeCreacion {
 		provinciaLocalidad.put("Vezdemarban", "Zamora");
 		provinciaLocalidad.put("Zafra", "Badajoz");
 		provinciaLocalidad.put("Zaragoza", "Zaragoza");
+		provinciaLocalidad.put("Zamora", "Zamora");
 
 		//localidad-codigoPostal
 		localidadCodigoPostal.put("Aínsa", "22330");
@@ -227,6 +230,7 @@ public class ScripDeCreacion {
 		localidadCodigoPostal.put("Vezdemarban", "49800");
 		localidadCodigoPostal.put("Zafra", "06300");
 		localidadCodigoPostal.put("Zaragoza", "50001");
+		localidadCodigoPostal.put("Zamora", "49001");
 	}
 		
 		//clase que guarda los datos en un archivo
@@ -427,18 +431,22 @@ public class ScripDeCreacion {
 
 	//clase que crea la tabla preferenciasInquilino
 	public static void preferenciasInquilino(int numeroLineas){
-
+		
 		Random random=new Random();
 		String salida="";
 		int loc=0;
+		String dNI="";
 		for (int i = numeroLineas; i > 0; i--) {
-			loc=random.nextInt(19);
-			salida+=inicio+"preferenciasInquilino"+inicio2+"dni,localidad,provincia,metrosMinimo,metrosMaximo,nBanos,garaje,precioMaximo"+medio+dniInquilino[dniInquilino.length-1]+",'"+localidad[loc]+"','"+provinciaLocalidad.get(localidad[loc])+"',"+random.nextInt(20,80)+","+random.nextInt(90,200)+","+random.nextInt(1,4)+","+(random.nextInt(0,2)==1?"True":"False")+","+random.nextInt(700,2000)+fin+"\n";
+			dNI=dniInquilino[dniInquilino.length-1];
+			dniInquilino = Arrays.copyOf(dniInquilino, dniInquilino.length - 1);
+			for (int j = 0; j < random.nextInt(1,maxLocalidadesPreferencias); j++) {
+				loc=random.nextInt(localidad.length);
+			salida+=inicio+"preferenciasInquilino"+inicio2+"dni,localidad,provincia,metrosMinimo,metrosMaximo,nBanos,garaje,precioMaximo"+medio+dNI+",'"+localidad[loc]+"','"+provinciaLocalidad.get(localidad[loc])+"',"+random.nextInt(20,80)+","+random.nextInt(90,200)+","+random.nextInt(1,4)+","+(random.nextInt(0,2)==1?"True":"False")+","+random.nextInt(700,2000)+fin+"\n";
+			
+			}
 			
 			dni=Arrays.copyOf(dni, dni.length+1);
-			dni[dni.length-1]=dniInquilino[dniInquilino.length-1];
-			
-			dniInquilino = Arrays.copyOf(dniInquilino, dniInquilino.length - 1);
+			dni[dni.length-1]=dNI;
 		}
 		guardarDatos(salida);
 	}
