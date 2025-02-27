@@ -11,16 +11,17 @@ import java.util.Random;
 
 
 /*
- * hay tabajadores que son inquilinos y propietarios
- * propietarios tienen varias viviendas
+ * hay tabajadores que son inquilinos y propietarios >> los propietarios no estan hechos todavia
+ * propietarios tienen varias viviendas**
  * clientes pueden tener pagos pendientes/atrasados
- * inquilinos tienen varios contratos realizados
- * inquilinos que han sido trabajadores
+ * inquilinos tienen varios contratos realizados**
+ * inquilinos que han sido trabajadores**
  */
 public class ScripDeCreacion {
 
-	//variables estaticas para uso general
+	//variables que contienen secciones de las consultas NO MODIFICAR
 	private static String inicio="INSERT INTO ",inicio2=" (", medio=") values (",fin=");";
+	//variables estaticas para uso general que sirven para vincular unas tablas con otras
 	private static String[] dni={};
 	private static String[] dniInquilino={};
 	private static String[] dni3={};
@@ -28,16 +29,23 @@ public class ScripDeCreacion {
 	private static String[] domicilios={};
 	private static String[] oficinas={};
 	private static int[] localidadesVivienda={};
-	private static String[] idInmoviliaria={};
+	private static String[] idInmobiliaria={};
 	private static int[] cantidadOficinas={};
 	private static int[] numeroViviendas={};
 	private static String[][] DtContrato={{}};
+	private static int maximoPropiedades=0;
+	private static int maxLocalidadesPreferencias=0;
 
-	private static String[] localidad={"Valladolid","Barcelona","Valencia","Vezdemarban","Alcalá de Henares", "Aínsa", "Albarracín", "Cangas de Onís", "Comillas","Cuenca", "Frigiliana", "Laguardia", "Olite", "Potes","Ronda", "Santillana del Mar", "Trujillo", "Úbeda", "Zafra", "Bilbao", "Sevilla", "Granada", "Salamanca", "Toledo", "Burgos", "León", "Zaragoza", "Málaga", "Murcia", "Pamplona", "Logroño", "Santander", "Cádiz", "Huelva", "Almería", "San Sebastián", "Gijón", "Oviedo"};
+	//Array de localidades al cambiarlo se deben cambiar los 3 diccionarios correspondientes en la funcion rellenarDiccionarios
+	private static String[] localidad={"Valladolid","Barcelona","Valencia","Vezdemarban","Alcalá de Henares", "Aínsa", "Albarracín", "Cangas de Onís", "Comillas","Cuenca", "Frigiliana", "Laguardia", "Olite", "Potes","Ronda", "Santillana del Mar", "Trujillo", "Úbeda", "Zafra", "Bilbao", "Sevilla", "Granada", "Salamanca", "Toledo", "Burgos", "León", "Zaragoza", "Málaga", "Murcia", "Pamplona", "Logroño", "Santander", "Cádiz", "Huelva", "Almería", "San Sebastián", "Gijón", "Oviedo", "Zamora"};
 	//private static String[] provincias = {"Álava", "Albacete", "Alicante", "Almería", "Asturias","Ávila", "Badajoz", "Baleares", "Barcelona", "Burgos","Cáceres", "Cádiz", "Cantabria", "Castellón", "Ciudad Real","Córdoba", "Cuenca", "Gerona", "Granada", "Guadalajara","Guipúzcoa", "Huelva", "Huesca", "Jaén", "La Coruña","La Rioja", "Las Palmas", "León", "Lérida", "Lugo","Madrid", "Málaga", "Murcia", "Navarra", "Orense","Palencia", "Pontevedra", "Salamanca", "Santa Cruz de Tenerife", "Segovia","Sevilla", "Soria", "Tarragona", "Teruel", "Toledo","Valencia", "Valladolid", "Vizcaya", "Zamora", "Zaragoza"};
+	//este arrary no es necesario cambiarlo
 	private static String[] direccion1={"Calle","Avenida","Paseo","Plaza","Bulevard",};
+	// el arrary contiene unos 400 nombres, se pueden añadir mas o cambiarlos por otros distintos seria lo recomendable
 	private static String[] direccion2={"Adrián", "Beatriz", "Carlos", "Daniela", "Elena","Francisco", "Gabriela", "Hugo", "Isabel", "Javier","Karla", "Luis", "Marta", "Nicolás", "Macedonia","Pablo", "Raquel", "Samuel", "Teresa", "Víctor","Alicia", "Gavilla", "Clara", "Diego", "Eva","Félix", "Gloria", "Héctor", "Irene", "Joaquín","Juan", "María", "Pedro", "Ana", "Luis", "Lucía", "José", "Carmen", "David", "Laura","Carlos", "Elena", "Javier", "Sofía", "Pablo", "Marta", "Sergio", "Sara", "Andrés", "Julia","Jorge", "Beatriz", "Alberto", "Isabel", "Rubén", "Patricia", "Fernando", "Raquel", "Miguel", "Nuria","Antonio", "Rosa", "Manuel", "Cristina", "Alejandro", "Teresa", "Adrián", "Inés", "Francisco", "Verónica","Iván", "Lorena", "Roberto", "Natalia", "Álvaro", "Mónica", "Diego", "Paula", "Rafael", "Irene","Marcos", "Silvia", "Vicente", "Alicia", "Eduardo", "Noelia", "Jesús", "Eva", "Samuel", "Belén","Ángel", "Clara", "Hugo", "Sandra", "Óscar", "Rocío", "Raúl", "Carla", "Gabriel", "Bárbara","Enrique", "Olga", "Felipe", "Nerea", "Guillermo", "Ariadna", "Gonzalo", "Rebeca", "Jaime", "Daniela","Ramón", "Ángela", "Martín", "Victoria", "Emilio", "Esther", "Agustín", "Ainhoa", "Tomás", "Iris","Mario", "Claudia", "Julio", "Aitana", "Alfredo", "Miriam", "Alonso", "Diana", "Ignacio", "Paloma","José Luis", "Aina", "Raimundo", "Cristina", "Benito", "Ana Isabel", "Miguel Ángel", "Pilar", "Sebastián", "Elvira","Armando", "Fátima", "Teodoro", "Sofía", "Rodrigo", "Carolina", "Alberto", "Patricia", "Santiago", "María Jesús","Vicente", "Verónica", "Héctor", "Adela", "Bernardo", "Estíbaliz", "Leonardo", "Alicia", "Gaspar", "Elisa","Ernesto", "Miriam", "Esteban", "Encarnación", "Norberto", "Rita", "Guadalupe", "Carmen", "Baltasar", "Cristina","Eduardo", "Francisca", "Fermín", "Marina", "Herminio", "Dolores", "Arturo", "Aurora", "Maximiliano", "Montserrat","Braulio", "Rocío", "Eustaquio", "María José", "Salvador", "Eva", "Herminia", "Lucía", "Marcelino", "Teresa","Demetrio", "Natalia", "Máximo", "Noemí", "Eleuterio", "Isabel", "Anastasio", "Rosario", "Claudio", "Amparo","Damián", "Virginia", "Pascual", "María Ángeles", "Eligio", "María Carmen", "Florencio", "Consuelo", "Mariano", "Águeda","Ovidio", "Pilar", "Benjamín", "Isidra", "Modesto", "Maribel", "Rigoberto", "Valentina", "Alfonso", "Nieves","Serafín", "Blanca", "Alejo", "Julia", "Silvestre", "Manuela", "Sabino", "Juliana", "Octavio", "Gema","Leandro", "María Teresa", "Florentino", "Ana María", "Restituto", "Jesusa", "Cipriano", "Concepción", "Jacobo", "Mercedes","Epifanio", "Gracia", "Clemente", "Gregoria", "Rufo", "Araceli", "Teobaldo", "María Dolores", "Calixto", "Isabel","Sinesio", "Trinidad", "Higinio", "Purificación", "Justino", "Amelia", "Rosendo", "María Cristina", "Germán", "María Luisa","Tristán", "María del Carmen", "Bruno", "Josefa", "Edelmiro", "María Magdalena", "Teódulo", "María Pilar", "Amador", "Vicenta","Valeriano", "Alejandra", "Adán", "María Asunción", "Bartolomé", "María Milagros", "Filemón", "María Eugenia", "Hipólito", "María Antonia","Ciriaco", "Ángeles", "Humberto", "Rosalía", "Patricio", "María Rosa", "Artemio", "María Elena", "Abelardo", "Concha","Joaquín", "Margarita", "Remigio", "Eulalia", "Leocadio", "Paula", "Aurelio", "María de los Ángeles", "Segundo", "Mari Luz","Isidro", "María Fernanda", "Efrén", "María de los Reyes", "Casimiro", "María Mercedes", "Sabina", "Josefa María", "Jerónimo", "Consolación","Fortunato", "María Inmaculada", "Ulises", "María de la Concepción", "Ladislao", "María Soledad", "Prisciliano", "Dolores María", "Wenceslao", "María Isabel","Roque", "María del Rocío", "Valentín", "Inmaculada Concepción", "Aniceto", "María del Rosario", "Leopoldo", "María Ángeles", "Aureliano", "María del Carmen","Moisés", "María de la Paz", "Venancio", "María de los Ángeles", "Hilario", "María de la Consolación", "Osmundo", "María de las Nieves", "Tiburcio", "María Soledad","Sixto", "María del Pilar", "Porfirio", "María de la Luz", "Plácido", "María de las Mercedes", "Filemón", "María de la Paloma", "Macario", "María del Rosario","Urbano", "María del Mar", "Nicomedes", "María del Pilar", "Zenón", "María de la Asunción", "Gumersindo", "María de la O", "Dionisio", "María de los Ángeles","Faustino", "María de la Cabeza", "Timoteo", "María del Milagro", "Teófilo", "María de Lourdes", "Hermes", "María del Carmen", "Sixto", "María de la Encarnación","Ovidio", "María del Amor", "Irineo", "María del Amor Hermoso", "Efrén", "María del Buen Consejo", "Remigio", "María del Consuelo", "Silvestre", "María de las Mercedes","Teodoro", "María de la Gracia", "Tarsicio", "María de los Desamparados", "Avelino", "María del Mar", "Emeterio", "María de la Gloria", "Crispín", "María del Pilar","Cosme", "María del Carmen", "Dámaso", "María de las Angustias", "Protasio", "María del Rosario", "Rómulo", "María del Camino", "Emiliano", "María de la Concepción","Rogelio", "María de los Desamparados", "Jano", "María del Consuelo", "Tadeo", "María de la Visitación", "Próspero", "María de la Consolación", "Nereo", "María del Valle","Maximiliano", "María del Milagro", "Anacleto", "María del Refugio", "Timoteo", "María del Rosario", "Policarpo", "María del Buen Consejo", "Venancio", "María del Carmen","Eleuterio", "María de la Merced", "Eugenio", "María de los Ángeles", "Emeterio", "María del Pilar", "Ermenegildo", "María del Rosario", "Hipólito", "María del Carmen","Metodio", "María del Pilar", "Eligio", "María de la Consolación", "Longinos", "María de las Mercedes", "Róm"};
+	// se pueden añadir mas o cambiarlos por otros distintos seria lo recomendable
 	private static String[] apellidos = {"García", "Martínez", "López", "Sánchez", "Pérez", "González", "Rodríguez", "Fernández", "Gómez", "Ruiz","Hernández", "Jiménez", "Díaz", "Moreno", "Muñoz", "Álvarez", "Romero", "Alonso", "Gutiérrez", "Navarro","Torres", "Domínguez", "Vázquez", "Ramos", "Gil", "Ramírez", "Serrano", "Blanco", "Molina", "Morales","Suárez", "Ortega", "Delgado", "Castro", "Ortiz", "Rubio", "Marín", "Sanz", "Iglesias", "Núñez","Medina", "Garrido", "Cruz", "Calvo", "Gallego", "Vidal", "León", "Reyes", "Herrera", "Peña","Cabrera", "Flores", "Campos", "Vega", "Fuentes", "Carrasco", "Diez", "Caballero", "Nieto", "Aguilar"};
+	//declaracion de los diccionarios
 	private static HashMap<String, String> provinciaLocalidad = new HashMap<>();
 	private static HashMap<String, String> localidadCodigoPostal = new HashMap<>();
 	private static HashMap<String, Integer> localidadHabitantes = new HashMap<>();
@@ -46,23 +54,26 @@ public class ScripDeCreacion {
 
 	public static void main(String[] args) {
 
-			//Cantidates
+			//Cantidates de datos a generar
 
 			//inmobiliarias
 			int numInmo=500;
 			//personas
+			// los tabajadores divisibles por 5 tambien son inquilinos
 			int trabajadores=500;
-			int inquilinos=1000;
-			int propietarios=1500;
-			//viviendas
-			int viviendas=2000;
-
-
-			//Variables dependientes
+			int inquilinos=1500;
+				//el maximo de preferencias suma 1 para evitar errores pudiendo colocar 0 para que el maximo de preferencias sea 1
+				maxLocalidadesPreferencias=2;
+			//propietarios el maximo de propiedades que pueden tener es el que corresponde a la variable maximoPropiedades
+			int propietarios=1200;
+				//hay que contarle 1 mas siendo el minimo 2 para que sola mente tenga 1 vivienda
+				maximoPropiedades=6;
+			//viviendas es recomendable que sea mayor que el numero de propietarios
+			int viviendas=4000;
+			
+			//Variables dependientes no modificarlas
 			int cantidadPersonas=trabajadores+inquilinos+propietarios;
-
 			rellenarDiccionarios();
-
 
 			//llamada a los metodos
 			Inmobiliaria(numInmo);//1
@@ -70,12 +81,25 @@ public class ScripDeCreacion {
 			persona(cantidadPersonas);//1
 			oficina(numInmo);//2
 			trabajador(trabajadores);//2
-			Inquilino(inquilinos);//2
-			propietarios(propietarios);//2
+
+			System.out.println("dni Disponibles pos trabajador "+(dni.length));
+			System.out.println("pre inc "+(dni.length-propietarios)+" trabajadores Inc"+dniTrabajadorInquilino.length);
+			inquilinos=Inquilino(inquilinos);//2
+
+			System.out.println("dni Disponibles pos inquilino "+(dni.length));
+			System.out.println("pos inc "+inquilinos);
+			int numPropietarios=propietarios(propietarios);//2
+
+			System.out.println("dni Disponibles pos propietario "+(dni.length));
+
+			if (numPropietarios>viviendas) {
+				System.out.println("No hay suficientes propietarios para las viviendas, propietarios "+ numPropietarios+" viviendas "+viviendas);
+			}
+
 			vivienda(viviendas);//2
 			infoZona();//2
 			preferenciasInquilino(inquilinos);//3
-			propietarioVivienda(propietarios);//3
+			propietarioVivienda(numPropietarios);//3
 			contrato(inquilinos);//4
 
 
@@ -126,6 +150,7 @@ public class ScripDeCreacion {
 		localidadHabitantes.put("Vezdemarban", 200);
 		localidadHabitantes.put("Zafra", 16700);
 		localidadHabitantes.put("Zaragoza", 674997);
+		localidadHabitantes.put("Zamora", 60000);
 
 		//localidad-provincia
 		provinciaLocalidad.put("Aínsa", "Huesca");
@@ -166,6 +191,7 @@ public class ScripDeCreacion {
 		provinciaLocalidad.put("Vezdemarban", "Zamora");
 		provinciaLocalidad.put("Zafra", "Badajoz");
 		provinciaLocalidad.put("Zaragoza", "Zaragoza");
+		provinciaLocalidad.put("Zamora", "Zamora");
 
 		//localidad-codigoPostal
 		localidadCodigoPostal.put("Aínsa", "22330");
@@ -206,6 +232,7 @@ public class ScripDeCreacion {
 		localidadCodigoPostal.put("Vezdemarban", "49800");
 		localidadCodigoPostal.put("Zafra", "06300");
 		localidadCodigoPostal.put("Zaragoza", "50001");
+		localidadCodigoPostal.put("Zamora", "49001");
 	}
 		
 		//clase que guarda los datos en un archivo
@@ -231,7 +258,7 @@ public class ScripDeCreacion {
 		//metodo que genera el domicilio
 		public static String generarDomicilio(){
 			Random random=new Random();
-			String salida="'"+direccion1[random.nextInt(5)]+" "+direccion2[random.nextInt(400)]+" numero "+random.nextInt(1,500)+"'";
+			String salida="'"+direccion1[random.nextInt(direccion1.length)]+" "+direccion2[random.nextInt(direccion2.length)]+" numero "+random.nextInt(1,500)+"'";
 			return salida;
 		}
 
@@ -248,10 +275,10 @@ public class ScripDeCreacion {
 			int n0ficinas=0;
 			for (int i = 0; i < numeroLineas; i++) {
 				n0ficinas=random.nextInt(1,10);
-				salida+=inicio+"inmoviliaria"+inicio2+"idInmobiliaria,nombreComercial,categoria,nOficinas,paisSede"+medio+(i+1)+",'"+Inmobiliarias[random.nextInt(0,400)]+"',"+categorias[random.nextInt(4)]+","+n0ficinas+","+paisSede+fin+"\n";
+				salida+=inicio+"inmobiliaria"+inicio2+"idInmobiliaria,nombreComercial,categoria,nOficinas,paisSede"+medio+(i+1)+",'"+Inmobiliarias[random.nextInt(Inmobiliarias.length)]+"',"+categorias[random.nextInt(categorias.length)]+","+n0ficinas+","+paisSede+fin+"\n";
 				
-				idInmoviliaria=Arrays.copyOf(idInmoviliaria, idInmoviliaria.length+1);
-				idInmoviliaria[i]=i+"";
+				idInmobiliaria=Arrays.copyOf(idInmobiliaria, idInmobiliaria.length+1);
+				idInmobiliaria[i]=i+"";
 				cantidadOficinas=Arrays.copyOf(cantidadOficinas, cantidadOficinas.length+1);
 				cantidadOficinas[i]=n0ficinas;
 		}
@@ -272,9 +299,9 @@ public class ScripDeCreacion {
 		for (int i = 0; i < numeroLineas; i++) {
 			for (int j = 0; j < cantidadOficinas[i]; j++) {
 
-				loc=localidad[random.nextInt(19)];
+				loc=localidad[random.nextInt(localidad.length)];
 
-				salida+=inicio+"oficina"+inicio2+"idInmoviliaria,idOficina,direccion,cp,localidad,provincia"+medio+(i+1)+","+(j+1)+",'"+direccion1[random.nextInt(5)]+" "+direccion2[random.nextInt(30)]+"',"+localidadCodigoPostal.get(loc)+",'"+loc+"','"+provinciaLocalidad.get(loc)+"'"+fin+"\n";
+				salida+=inicio+"oficina"+inicio2+"idInmobiliaria,idOficina,direccion,cp,localidad,provincia"+medio+(i+1)+","+(j+1)+",'"+direccion1[random.nextInt(direccion1.length)]+" "+direccion2[random.nextInt(direccion2.length)]+"',"+localidadCodigoPostal.get(loc)+",'"+loc+"','"+provinciaLocalidad.get(loc)+"'"+fin+"\n";
 				oficinas=Arrays.copyOf(oficinas, oficinas.length+1);
 				oficinas[oficinas.length-1]=(i+1)+","+(j+1);
 			}
@@ -291,112 +318,139 @@ public class ScripDeCreacion {
 
 		String salida="";
 		String dnii="";
+		int contador=0;
 		
 		for (int i = 0; i < numeroLinesa; i++) {
-
+			contador++;
 			dnii=generarDni();
 			dni=Arrays.copyOf(dni, dni.length+1);
 			dni[i]=dnii;
-			salida+=inicio+"persona"+inicio2+"dni,nombre,apellidos,telefono"+medio+dnii+",'"+direccion2[random.nextInt(400)]+"','"+apellidos[random.nextInt(60)]+"','"+random.nextInt(100000000,999999999)+"'"+fin+"\n";
+			salida+=inicio+"persona"+inicio2+"dni,nombre,apellidos,telefono"+medio+dnii+",'"+direccion2[random.nextInt(direccion2.length)]+"','"+apellidos[random.nextInt(apellidos.length)]+"','"+random.nextInt(100000000,999999999)+"'"+fin+"\n";
 		}
 		guardarDatos(salida);
 		salida="";
+		System.out.println("Personas creadas "+contador);
 
 	}
 
 	//clase que crea la tabla trabajador
-	public static void trabajador(int numeroLineas){
-		Random random=new Random();
+	public static void trabajador(int numeroLineas) {
+		Random random = new Random();
 		LocalDate fechaBaja;
 		LocalDate fechaAlta;
-
-		String[] tipoContrato = {"PorHoras","Fijo","Temporal","FijoDiscontinuo","PorCondicionesDeLaProduccion"};
-		String salida="";
+	
+		String[] tipoContrato = {"PorHoras", "Fijo", "Temporal", "FijoDiscontinuo", "PorCondicionesDeLaProduccion"};
+		String salida = "";
+		String sacardni = "";
+	
 		for (int i = numeroLineas; i > 0; i--) {
-			fechaAlta=LocalDate.of(random.nextInt(2000,2021), random.nextInt(1,13), random.nextInt(1,29));
-			fechaBaja=LocalDate.of(random.nextInt(2000,2035), random.nextInt(1,13), random.nextInt(1,29));
+			fechaAlta = LocalDate.of(random.nextInt(2000, 2021), random.nextInt(1, 13), random.nextInt(1, 29));
+			fechaBaja = LocalDate.of(random.nextInt(2000, 2035), random.nextInt(1, 13), random.nextInt(1, 29));
+	
 			if (fechaBaja.isAfter(fechaAlta)) {
-				salida+=inicio+"trabajador"+inicio2+"dni,fechaAlta,tipoContrato,fechaBaja,salarioBrutoAnual"+medio+dni[dni.length-1]+",'"+fechaAlta.toString()+"','"+tipoContrato[random.nextInt(5)]+"','"+fechaBaja.toString()+"',"+random.nextInt(24500,255000)+fin+"\n";
-				
-				if (i%(numeroLineas/10)==0) {
-					dniTrabajadorInquilino=Arrays.copyOf(dniTrabajadorInquilino, dniTrabajadorInquilino.length+1);
-					dniTrabajadorInquilino[dniTrabajadorInquilino.length-1]=dni[dni.length-1];
+				// Sacar y eliminar el dni
+				sacardni = dni[dni.length - 1];
+				dni = Arrays.copyOf(dni, dni.length - 1);
+	
+				// Crear la línea
+				salida += inicio + "trabajador" + inicio2 + "dni,fechaAlta,tipoContrato,fechaBaja,salarioBrutoAnual" + medio + sacardni + ",'" + fechaAlta.toString() + "','" + tipoContrato[random.nextInt(5)] + "','" + fechaBaja.toString() + "'," + random.nextInt(24500, 255000) + fin + "\n";
+	
+				if (i % 5 == 0) {
+					dniTrabajadorInquilino = Arrays.copyOf(dniTrabajadorInquilino, dniTrabajadorInquilino.length + 1);
+					dniTrabajadorInquilino[dniTrabajadorInquilino.length - 1] = sacardni;
 				}
-				
-				dni=Arrays.copyOf(dni, dni.length-1);
-				
-
-			}else{
+			} else {
 				i++;
 			}
-
 		}
+	
 		guardarDatos(salida);
-		salida="";
+		salida = "";
 	}
 
 	//clase que crea la tabla inquilino
-	public static void Inquilino(int numeroLineas) {
+	public static int Inquilino(int numeroLineas) {
     Random random = new Random();
     String[] tipoInquilino = {"'Particular'", "'Empresa'"};
     String[] buscaOfertas = {"True", "False"};
-
+	int contador=0;
     String salida = "";
-    for (int i = (numeroLineas)+dniTrabajadorInquilino.length; i > 0; i--) {
+	int trabInc=dniTrabajadorInquilino.length;
+		// fusionar los dnis de los trabajadores seleccionados con los inquilinos
+		for (String dniTrab : dniTrabajadorInquilino) {
+			dni=Arrays.copyOf(dni, dni.length+1);
+			dni[dni.length-1]=dniTrab;
+		}
+		System.out.println("dni Disponibles agregados trabajadores "+(dni.length));
+	//crear los inquilinos
+    for (int i = (numeroLineas+trabInc); i > 0; i--) {
         if (dni.length > 0) {
+
             dniInquilino = Arrays.copyOf(dniInquilino, dniInquilino.length + 1);
             dniInquilino[dniInquilino.length - 1] = dni[dni.length - 1];
             salida += inicio + "inquilino" + inicio2 + "dni,tipoInquilino,buscaOfertas" + medio + dni[dni.length - 1] + "," + tipoInquilino[random.nextInt(2)] + "," + buscaOfertas[random.nextInt(2)] + fin + "\n";
             dni = Arrays.copyOf(dni, dni.length - 1);
-        }else{
-			dniInquilino = Arrays.copyOf(dniInquilino, dniInquilino.length + 1);
-            dniInquilino[dniInquilino.length - 1] = dniTrabajadorInquilino[dniTrabajadorInquilino.length - 1];
-            salida += inicio + "inquilino" + inicio2 + "dni,tipoInquilino,buscaOfertas" + medio + dni[dni.length - 1] + "," + tipoInquilino[random.nextInt(2)] + "," + buscaOfertas[random.nextInt(2)] + fin + "\n";
-            
-			dniTrabajadorInquilino=Arrays.copyOf(dniTrabajadorInquilino, dniTrabajadorInquilino.length-1);
-		}
+			contador++;
+        }
     }
-	System.out.println("dniInc "+dniInquilino.length);
+	System.out.println("Inc "+contador);
     guardarDatos(salida);
     salida = "";
+	return contador;
 	}
 
 	//clase que crea la tabla propietario
-	public static void propietarios(int numeroLineas){
-		Random random=new Random();
-		String[] tipoCliente={"'Particular'","'Empresa'"};
-		int nViviendas=0;
-		String salida="";
+	public static int propietarios(int numeroLineas) {
+		Random random = new Random();
+		String[] tipoCliente = {"'Particular'", "'Empresa'"};
+		int nViviendas = 0;
+		String salida = "";
+		int contador=0;
+		System.out.println(dni.length+"dnis");
 		for (int i = numeroLineas; i > 0; i--) {
-
-			numeroViviendas=Arrays.copyOf(numeroViviendas, numeroViviendas.length+1);
-			nViviendas=random.nextInt(1,10);
-			numeroViviendas[numeroViviendas.length-1]=nViviendas;
-
-			dni3 = Arrays.copyOf(dni3, dni3.length + 1);
-			dni3[dni3.length - 1] = dni[dni.length - 1];
-
-			salida+=inicio+"propietario"+inicio2+"dni,tipoCliente,nViviendas"+medio+dni[dni.length-1]+","+tipoCliente[random.nextInt(2)]+","+nViviendas+fin+"\n";
-			dni=Arrays.copyOf(dni, dni.length-1);
+			
+			if (dni.length > 0) {
+				contador++;
+				// generar el número de viviendas que tiene cada propietario
+				numeroViviendas = Arrays.copyOf(numeroViviendas, numeroViviendas.length + 1);
+				nViviendas = random.nextInt(1, maximoPropiedades);
+				numeroViviendas[numeroViviendas.length - 1] = nViviendas;
+				// copiar el dni del propietario
+				dni3 = Arrays.copyOf(dni3, dni3.length + 1);
+				dni3[dni3.length - 1] = dni[dni.length - 1];
+	
+				salida += inicio + "propietario" + inicio2 + "dni,tipoCliente,nViviendas" + medio + dni[dni.length - 1] + "," + tipoCliente[random.nextInt(2)] + "," + nViviendas + fin + "\n";
+				dni = Arrays.copyOf(dni, dni.length - 1);
+			} else {
+				System.out.println("Propietarios: No hay suficientes DNI disponibles."+contador+" DNIS "+dni.length);
+				break;
+			}
 		}
 		guardarDatos(salida);
-		salida="";
+		salida = "";
+		return contador;
 	}
 
 	//clase que crea la tabla preferenciasInquilino
 	public static void preferenciasInquilino(int numeroLineas){
-
+		
 		Random random=new Random();
 		String salida="";
 		int loc=0;
+		String dNI="";
+		int reps=0;
 		for (int i = numeroLineas; i > 0; i--) {
-			loc=random.nextInt(19);
-			salida+=inicio+"preferenciasInquilino"+inicio2+"dni,localidad,provincia,metrosMinimo,metrosMaximo,nBanos,garaje,precioMaximo"+medio+dniInquilino[dniInquilino.length-1]+",'"+localidad[loc]+"','"+provinciaLocalidad.get(localidad[loc])+"',"+random.nextInt(20,80)+","+random.nextInt(90,200)+","+random.nextInt(1,4)+","+(random.nextInt(0,2)==1?"True":"False")+","+random.nextInt(700,2000)+fin+"\n";
+			dNI=dniInquilino[dniInquilino.length-1];
+			reps=random.nextInt(1,(maxLocalidadesPreferencias+1));
+			dniInquilino = Arrays.copyOf(dniInquilino, dniInquilino.length - 1);
+			for (int j = 0; j < reps; j++) {
+				loc=random.nextInt(localidad.length);
+			salida+=inicio+"preferenciasInquilino"+inicio2+"dni,localidad,provincia,metrosMinimo,metrosMaximo,nBanos,garaje,precioMaximo"+medio+dNI+",'"+localidad[loc]+"','"+provinciaLocalidad.get(localidad[loc])+"',"+random.nextInt(20,80)+","+random.nextInt(90,200)+","+random.nextInt(1,4)+","+(random.nextInt(0,2)==1?"True":"False")+","+random.nextInt(700,2000)+fin+"\n";
+			
+			}
 			
 			dni=Arrays.copyOf(dni, dni.length+1);
-			dni[dni.length-1]=dniInquilino[dniInquilino.length-1];
-			
-			dniInquilino = Arrays.copyOf(dniInquilino, dniInquilino.length - 1);
+			dni[dni.length-1]=dNI;
 		}
 		guardarDatos(salida);
 	}
@@ -435,12 +489,26 @@ public class ScripDeCreacion {
 	//clase que crea la tabla propietarioVivienda
 	public static void propietarioVivienda(int numeroLineas){
 
+		int contador=0;
 		Random random=new Random();
 		String salida="";
+		String domicilio, localidadd, provincia;
 		for (int i = 0; i < numeroLineas; i++) {
-			salida+=inicio+"propietarioVivienda"+inicio2+"dni,domicilio,localidad,provincia,porcentaje"+medio+dni3[dni3.length-(i+1)]+","+domicilios[domicilios.length-(i+1)]+",'"+localidad[localidadesVivienda[localidadesVivienda.length-(i+1)]]+"','"+provinciaLocalidad.get(localidad[localidadesVivienda[localidadesVivienda.length-(i+1)]])+"',"+random.nextInt(1,101)+fin+"\n";
-			
+			for (int j = 0; j < numeroViviendas[i]; j++) {
+
+				//domicilio = domicilios[domicilios.length-(j+1)];
+				//localidadd = localidad[localidadesVivienda[localidadesVivienda.length-(j+1)]];
+
+				domicilio = domicilios[contador];
+				localidadd = localidad[localidadesVivienda[contador]];
+				provincia = provinciaLocalidad.get(localidadd);
+				
+			salida+=inicio+"propietarioVivienda"+inicio2+"dni,domicilio,localidad,provincia,porcentaje"+medio+dni3[i]+","+domicilio+",'"+localidadd+"','"+provincia+"',"+random.nextInt(1,101)+fin+"\n";
+			contador++;
+			}
+
 		}
+		System.out.println("PropietariosVivienda creados "+contador);
 		guardarDatos(salida);
 		salida="";
 
@@ -454,31 +522,42 @@ public class ScripDeCreacion {
 		LocalDate fechaInicio;
 		LocalDate fechaFin;
 		String oficina="";
+		int numContratos;
+		String dnI="";
+		int contador=0;
 		for (int i = numeroLineas; i > 0; i--) {
-			fechaInicio=LocalDate.of(random.nextInt(2000,2021), random.nextInt(1,13), random.nextInt(1,29));
-			fechaFin=LocalDate.of(random.nextInt(2000,2021), random.nextInt(1,13), random.nextInt(1,29));
-			if (fechaFin.isAfter(fechaInicio)) {
+			numContratos=random.nextInt(1,4);
+			dnI=dni[dni.length-1];
+			dni=Arrays.copyOf(dni, dni.length-1);
+			for (int j = 0; j < numContratos; j++) {
+				fechaInicio=LocalDate.of(random.nextInt(2000,2021), random.nextInt(1,13), random.nextInt(1,29));
+				fechaFin=LocalDate.of(random.nextInt(2000,2021), random.nextInt(1,13), random.nextInt(1,29));
+				if (fechaFin.isAfter(fechaInicio)) {
+					contador++;
 
-				oficina=oficinas[random.nextInt(oficinas.length)];
+					oficina=oficinas[random.nextInt(oficinas.length)];
 
-				salida+=inicio+"contrato"+inicio2+"dniInquilino,domicilio,localidad,provincia,fechaFirma,duracion,fechaFin,estadoInicialCasa,estadoFinalCasa,fianza,fianzaDevuelta,oficina,inmoviliaria"+medio+dni[dni.length-1]+","+domicilios[domicilios.length-1]+",'"+localidad[localidadesVivienda[localidadesVivienda.length-1]]+"','"+provinciaLocalidad.get(localidad[localidadesVivienda[localidadesVivienda.length-1]])+"','"+fechaInicio.toString()+"',"+random.nextInt(1,37)+",'"+fechaFin.toString()+"','"+(random.nextInt(0,2)==1?"Bueno":"Malo")+"','"+(random.nextInt(0,2)==1?"Bueno":"Malo")+"',"+random.nextInt(100,1000)+","+(random.nextInt(0,2)==1?1:0)+","+oficina+fin+"\n";
+					salida+=inicio+"contrato"+inicio2+"dniInquilino,domicilio,localidad,provincia,fechaFirma,duracion,fechaFin,estadoInicialCasa,estadoFinalCasa,fianza,fianzaDevuelta,oficina,inmobiliaria"+medio+dnI+","+domicilios[domicilios.length-1]+",'"+localidad[localidadesVivienda[localidadesVivienda.length-1]]+"','"+provinciaLocalidad.get(localidad[localidadesVivienda[localidadesVivienda.length-1]])+"','"+fechaInicio.toString()+"',"+random.nextInt(1,37)+",'"+fechaFin.toString()+"','"+(random.nextInt(0,2)==1?"Bueno":"Malo")+"','"+(random.nextInt(0,2)==1?"Bueno":"Malo")+"',"+random.nextInt(100,1000)+","+(random.nextInt(0,2)==1?1:0)+","+oficina+fin+"\n";
 
-				DtContrato=Arrays.copyOf(DtContrato, DtContrato.length+1);
-				DtContrato[DtContrato.length-1]=new String[2];
-				DtContrato[DtContrato.length-1][0]=dni[dni.length-1]+","+domicilios[domicilios.length-1]+",'"+localidad[localidadesVivienda[localidadesVivienda.length-1]]+"','"+provinciaLocalidad.get(localidad[localidadesVivienda[localidadesVivienda.length-1]])+"'";	
-				DtContrato[DtContrato.length-1][1]=fechaInicio.toString();
+					DtContrato=Arrays.copyOf(DtContrato, DtContrato.length+1);
+					DtContrato[DtContrato.length-1]=new String[2];
+					DtContrato[DtContrato.length-1][0]=dnI+","+domicilios[domicilios.length-1]+",'"+localidad[localidadesVivienda[localidadesVivienda.length-1]]+"','"+provinciaLocalidad.get(localidad[localidadesVivienda[localidadesVivienda.length-1]])+"'";	
+					DtContrato[DtContrato.length-1][1]=fechaInicio.toString();
+					
+					
+					domicilios=Arrays.copyOf(domicilios, domicilios.length-1);
+					localidadesVivienda=Arrays.copyOf(localidadesVivienda, localidadesVivienda.length-1);
+				}else{
+					j++;
+				}
 				
-				dni=Arrays.copyOf(dni, dni.length-1);
-				domicilios=Arrays.copyOf(domicilios, domicilios.length-1);
-				localidadesVivienda=Arrays.copyOf(localidadesVivienda, localidadesVivienda.length-1);
-			}else{
-				i++;
 			}
+			
 		}
 		//fechaFirma,dni,domicilio,localidad.
 		guardarDatos(salida);
 		salida="";
-		pago(numeroLineas);
+		pago(contador);
 	}
 
 	//clase que crea la tabla pago
@@ -489,13 +568,15 @@ public class ScripDeCreacion {
 		LocalDate fechaPrevistaPago;
 		LocalDate fechaRealPago;
 		int periodoPago=0;
+		String lugar="";
 		for (int i = numeroLineas; i > 0; i--) {
 
 			periodoPago=random.nextInt(1,13);
 			fechaPrevistaPago=LocalDate.parse(DtContrato[DtContrato.length-1][1]);
+			lugar=DtContrato[DtContrato.length-1][0];
 			fechaRealPago=fechaPrevistaPago.plusDays(random.nextInt(periodoPago*28));
 
-			salida+=inicio+"pago"+inicio2+"dni,domicilio,localidad,provincia,cantidad,fechaPrevistaPago,fechaRealPago,periodoPago"+medio+DtContrato[DtContrato.length-1][0]+","+random.nextInt(100,2000)+",'"+fechaPrevistaPago+"','"+fechaRealPago+"',"+periodoPago+fin+"\n";
+			salida+=inicio+"pago"+inicio2+"dni,domicilio,localidad,provincia,cantidad,fechaPrevistaPago,fechaRealPago,periodoPago"+medio+lugar+","+random.nextInt(100,2000)+",'"+fechaPrevistaPago+"','"+fechaRealPago+"',"+periodoPago+fin+"\n";
 			DtContrato=Arrays.copyOf(DtContrato, DtContrato.length-1);
 		}
 		guardarDatos(salida);
