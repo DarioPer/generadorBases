@@ -468,22 +468,26 @@ public class ScripDeCreacion {
 	}
 
 	//clase que crea la tabla vivienda
-	public static void vivienda(int numeroLineas){
-
-		Random random=new Random();
-		String salida="";
+	public static void vivienda(int numeroLineas) {
+		Random random = new Random();
+		String salida = "";
 		LocalDate fechaReforma;
 		for (int i = numeroLineas; i > 0; i--) {
-			fechaReforma=LocalDate.of(random.nextInt(1990,2021), random.nextInt(1,13), random.nextInt(1,29));
-			domicilios=Arrays.copyOf(domicilios, domicilios.length+1);
-			domicilios[domicilios.length-1]=generarDomicilio();
-			localidadesVivienda=Arrays.copyOf(localidadesVivienda, localidadesVivienda.length+1);
-			localidadesVivienda[localidadesVivienda.length-1]=random.nextInt(19);
-
-			salida+=inicio+"vivienda"+inicio2+"domicilio,localidad,provincia,cp,metrosConstruidos,metrosUtiles,ascensor,nHabitaciones,nBanos,tipoVentanas,tipoSuelo,ultimaReforma,precioMes,plazasGaraje,alquilado,metrosTerraza,trastero"+medio+domicilios[domicilios.length-1]+",'"+localidad[localidadesVivienda[localidadesVivienda.length-1]]+"','"+provinciaLocalidad.get(localidad[localidadesVivienda[localidadesVivienda.length-1]])+"',"+localidadCodigoPostal.get(localidad[random.nextInt(19)])+","+random.nextInt(50,200)+","+random.nextInt(40,150)+","+(random.nextInt(0,2)==1?"True":"False")+","+random.nextInt(1,6)+","+random.nextInt(1,4)+",'"+(random.nextInt(0,2)==1?"Aluminio":"PVC")+"','"+(random.nextInt(0,2)==1?"Parquet":"Gres")+"','"+fechaReforma.toString()+"',"+random.nextInt(300,2000)+","+random.nextInt(0,3)+","+(random.nextInt(0,2)==1?"True":"False")+","+random.nextInt(0,50)+","+(random.nextInt(0,2)==1?"True":"False")+fin+"\n";
+			fechaReforma = LocalDate.of(random.nextInt(1990, 2021), random.nextInt(1, 13), random.nextInt(1, 29));
+			domicilios = Arrays.copyOf(domicilios, domicilios.length + 1);
+			domicilios[domicilios.length - 1] = generarDomicilio();
+			localidadesVivienda = Arrays.copyOf(localidadesVivienda, localidadesVivienda.length + 1);
+			localidadesVivienda[localidadesVivienda.length - 1] = random.nextInt(localidad.length);
+	
+			int localidadIndex = localidadesVivienda[localidadesVivienda.length - 1];
+			String localidadSeleccionada = localidad[localidadIndex];
+			String provinciaSeleccionada = provinciaLocalidad.get(localidadSeleccionada);
+			String codigoPostal = localidadCodigoPostal.get(localidadSeleccionada);
+	
+			salida += inicio + "vivienda" + inicio2 + "domicilio,localidad,provincia,cp,metrosConstruidos,metrosUtiles,ascensor,nHabitaciones,nBanos,tipoVentanas,tipoSuelo,ultimaReforma,precioMes,plazasGaraje,alquilado,metrosTerraza,trastero"
+					+ medio + domicilios[domicilios.length - 1] + ",'" + localidadSeleccionada + "','" + provinciaSeleccionada + "'," + codigoPostal + "," + random.nextInt(50, 200) + "," + random.nextInt(40, 150) + "," + (random.nextInt(0, 2) == 1 ? "True" : "False") + "," + random.nextInt(1, 6) + "," + random.nextInt(1, 4) + ",'" + (random.nextInt(0, 2) == 1 ? "Aluminio" : "PVC") + "','" + (random.nextInt(0, 2) == 1 ? "Parquet" : "Gres") + "','" + fechaReforma.toString() + "'," + random.nextInt(300, 2000) + "," + random.nextInt(0, 3) + "," + (random.nextInt(0, 2) == 1 ? "True" : "False") + "," + random.nextInt(0, 50) + "," + (random.nextInt(0, 2) == 1 ? "True" : "False") + fin + "\n";
 		}
 		guardarDatos(salida);
-
 	}
 
 	//clase que crea la tabla propietarioVivienda
